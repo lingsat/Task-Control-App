@@ -1,0 +1,47 @@
+.footer {
+  padding: 10px 0;
+  background-color: #217074;
+
+  &__inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;    
+  }
+
+  &__text {
+    color: #fff;
+  }
+
+  &__logo {
+    margin-left: 5px;
+    width: 25px;
+    height: 25px;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .footer {
+    &__text {
+      font-size: 0.8rem;
+      text-align: center;
+    }
+  
+    &__logo {
+      width: 20px;
+    }
+  }
+
+}
+
+@media (max-width: 429.98px) {
+  .footer {  
+    &__text {
+      font-size: 1rem;
+    }
+
+    &__logo {
+      display: none;
+    }
+  }
+}

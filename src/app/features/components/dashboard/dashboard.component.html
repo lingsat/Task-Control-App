@@ -1,0 +1,13 @@
+<h2 class="dashboard__title">Dashboard</h2>
+<div class="dashboard__block">
+  <!-- ngFor temporary -->
+  <div class="dashboard__item dashboard__item--add" appBoardHighlight>
+    <span class="">+</span>
+    <p>Add new</p>
+  </div>
+  <div class="dashboard__item" *ngFor="let board of boards" appBoardHighlight>
+    <h4 class="item__name">Board name</h4>
+    <p class="item__description">Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+    <span class="item__date">23.09.2022</span>
+  </div>
+</div>

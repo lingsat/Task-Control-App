@@ -1,0 +1,56 @@
+.dashboard {
+  &__title {
+    padding-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  &__block {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content:safe;
+    gap: 20px
+  }
+
+  &__item {
+    padding: 20px 20px 40px 20px;
+    width: 264px;
+    min-height: 250px;
+    background-color: #E7EAEF;
+    box-shadow: 2px 2px 5px #AAABA8;
+    border-radius: 10px;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.1s linear;
+
+    &--add {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
+      span {
+        font-size: 7rem;     
+        line-height: 1;   
+      }
+
+      p {
+        font-size: 2rem;
+      }
+    }
+  }
+}
+
+.item {
+  &__name {
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+  }
+
+  &__date {
+    font-size: 0.9rem;
+    color: #217074;
+    position: absolute;
+    left: 20px;
+    bottom: 20px;
+    z-index: 1;
+  }
+}
