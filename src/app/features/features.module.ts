@@ -1,8 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { BoardComponent } from './components/board/board.component';
+import { BoardComponent } from './components/dashboard/board/board.component';
 import { BoardHighlightDirective } from './directives/board-highlight.directive';
+import { SharedModule } from '../shared/shared.module';
+import { AppRoutingModule } from '../app-routing.module';
+import { AuthComponent } from './components/auth/auth.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -10,14 +15,20 @@ import { BoardHighlightDirective } from './directives/board-highlight.directive'
   declarations: [
     DashboardComponent,
     BoardComponent,
-    BoardHighlightDirective
+    BoardHighlightDirective,
+    AuthComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    SharedModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   exports: [
     DashboardComponent,
-    BoardComponent
+    BoardComponent,
+    AuthComponent
   ]
 })
 export class FeaturesModule { }

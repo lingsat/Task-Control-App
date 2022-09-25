@@ -1,16 +1,20 @@
 .main {
   width: 100%;
   min-height: calc(100vh - 125px);
+
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
 }
 
 @media (max-width: 575.98px) {
   .main {
-    min-height: calc(100vh - 98px);
+    min-height: calc(100vh - 111px);
   }
 }
 
 @media (max-width: 429.98px) {
   .main {
-    min-height: calc(100vh - 116px);
+    min-height: calc(100vh - 130px);
   }
 }

@@ -6,12 +6,10 @@ import { Directive, ElementRef, HostListener, OnInit } from '@angular/core';
 export class BoardHighlightDirective implements OnInit {
   constructor(private elementRef: ElementRef) {}
   
-  ngOnInit(): void {
-    // this.elementRef.nativeElement.style.backgroundColor = '#CFCBC8';    
-  }
+  ngOnInit(): void {}
 
   @HostListener('mouseenter') mouseover(eventData: Event) {
-    this.elementRef.nativeElement.style.backgroundColor = '#dbdee4';      
+    this.elementRef.nativeElement.style.backgroundColor = '#D2D2D4';      
   }
 
   @HostListener('mouseleave') mouseleave(eventData: Event) {

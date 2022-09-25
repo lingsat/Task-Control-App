@@ -1,18 +1,40 @@
 .header {
   background-color: #217074;
-  color: #fff;
+  color: #fff;  
 
   &__inner {
+    height: 80px;
     padding: 17px 0;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-end;
+  }
+
+  &__logo {
+    line-height: 1.2;
+  }
+
+  &__link {
+    margin-left: 50px;
+    margin-right: auto;
+    font-size: 1.3rem;
+    line-height: 1.5;
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 
   &__btn {
     padding: 10px 15px;
+    height: 46px;
+    font-family: "Open Sans";
     font-size: 1.2rem;
-    background-color: #E7EAEF;
+    line-height: 1;
+    background-color: #e7eaef;
     color: #217074;
     border: 2px solid #217074;
     border-radius: 10px;
@@ -21,8 +43,8 @@
 
     &:hover {
       background-color: #217074;
-      color: #E7EAEF;
-      border: 2px solid #E7EAEF;
+      color: #e7eaef;
+      border: 2px solid #e7eaef;
     }
   }
 }
@@ -30,7 +52,9 @@
 @media (max-width: 575.98px) {
   .header {
     &__inner {
+      height: 66px;
       padding: 10px 0;
+      align-items: center;
     }
 
     &__logo {
@@ -45,7 +69,11 @@
 }
 
 @media (max-width: 429.98px) {
+  .header__link {
+    margin-left: 15px;
+    font-size: 1rem;
+  }
   .header__logo {
-      font-size: 1rem;
-    }
+    font-size: 1rem;
+  }
 }
