@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { FormsService } from 'src/app/features/services/forms.service';
+import { UserDataService } from 'src/app/features/services/user-data.service';
 
 @Component({
   selector: 'app-add-board-form',
@@ -8,7 +9,7 @@ import { FormsService } from 'src/app/features/services/forms.service';
   styleUrls: ['./add-board-form.component.scss']
 })
 export class AddBoardFormComponent implements OnInit { 
-  constructor(private formsService: FormsService) { }
+  constructor(private formsService: FormsService, private userDataService: UserDataService) { }
 
   ngOnInit(): void {}
 

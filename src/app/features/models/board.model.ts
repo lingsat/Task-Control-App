@@ -1,9 +1,10 @@
 export interface Board {
+  userId: string | undefined;
   id: string;
   name: string;
   description: string;
   createdDate: Date;
-  tasks: Task[];
+  tasks?: Task[];
 }
 
 export interface Task {
@@ -12,4 +13,5 @@ export interface Task {
   name: string;
   status: 'todo' | 'progress' | 'done';
   createdDate: Date;
+  comments?: string[];
 }

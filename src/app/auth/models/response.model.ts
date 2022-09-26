@@ -1,9 +1,9 @@
 export interface AuthResponseData {
+  jwt_token: string;
+  userId: string;
   email: string;
-  expiresIn: string;
-  idToken: string;
-  localId: string;
-  refreshToken: string;
-  kind?: string;
-  registered?: boolean;
+}
+
+export interface RegistrationResponseData {
+  message: string;
 }

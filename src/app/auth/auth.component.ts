@@ -1,8 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { AuthResponseData } from './models/response.model';
 import { AuthService } from './services/auth.service';
 
 @Component({
@@ -14,6 +12,7 @@ export class AuthComponent implements OnInit {
   authForm!: FormGroup;
   isLoginMode: boolean = true;
   isLoading: boolean = false;
+  
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -25,10 +24,7 @@ export class AuthComponent implements OnInit {
 
     this.authForm = new FormGroup({
       email: new FormControl(null, [Validators.required, Validators.email]),
-      password: new FormControl(null, [
-        Validators.required,
-        Validators.minLength(6),
-      ]),
+      password: new FormControl(null, [Validators.required]),
     });
   }
 
@@ -39,27 +35,31 @@ export class AuthComponent implements OnInit {
   onSubmit() {
     const { email, password } = this.authForm.value;
 
-    let authObs: Observable<AuthResponseData>;
-
     this.isLoading = true;
     if (this.isLoginMode) {
-      authObs = this.authService.login(email, password)
+      this.authService.login(email, password).subscribe({
+        next: () => {
+          this.isLoading = false;
+          this.router.navigate(['/dashboard']);
+        },
+        error: (error) => {
+          this.isLoading = false;
+          alert(error.error.message);
+        },
+      });
     } else {
-      authObs = this.authService.register(email, password);
+      this.authService.register(email, password).subscribe({
+        next: (resData) => {         
+          this.isLoading = false;
+          this.isLoginMode = true;
+          alert(resData.message);
+        },
+        error: (error) => {
+          this.isLoading = false;
+          alert(error.error.message);
+        },
+      });
     }
-
-    authObs.subscribe({
-      next: (resData) => {
-        // console.log(resData);
-        this.isLoading = false;
-        this.router.navigate(['/dashboard']);
-      },
-      error: (error) => {
-        this.isLoading = false;
-        alert(error.message);
-      },
-    });
-
     this.authForm.reset();
   }
 }
