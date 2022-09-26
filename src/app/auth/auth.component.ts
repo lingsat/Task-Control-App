@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AuthResponseData } from '../../models/response.model';
-import { AuthService } from '../../services/auth.service';
+import { AuthResponseData } from './models/response.model';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-auth',
@@ -18,6 +18,11 @@ export class AuthComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
+    // redirect authorized user to dashboard - lazy loading handle
+    if (localStorage.getItem('userData')) {
+      this.router.navigate(['/dashboard']);
+    }
+
     this.authForm = new FormGroup({
       email: new FormControl(null, [Validators.required, Validators.email]),
       password: new FormControl(null, [

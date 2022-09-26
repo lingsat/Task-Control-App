@@ -1,0 +1,25 @@
+<div class="background" clickOutside (clickOutside)="onCloseAddTaskModal()">
+  <div class="wrapper">
+    <form class="form" #addTaskForm="ngForm" (ngSubmit)="onSubmit(addTaskForm)">
+      <select class="form__select" ngModel name="taskState" required>
+        <option value="todo" [defaultSelected]="true">ToDo</option>
+        <option value="progress">In Progress</option>
+        <option value="done">Done</option>
+      </select>
+      <textarea
+        class="form__textarea"
+        rows="3"
+        placeholder="Task"
+        ngModel
+        name="task"
+        required
+      ></textarea>
+      <button type="submit" class="form__btn" [disabled]="addTaskForm.invalid">
+        Save Task
+      </button>
+      <button type="button" class="form__close" (click)="onCloseAddTaskModal()">
+        X
+      </button>
+    </form>
+  </div>
+</div>

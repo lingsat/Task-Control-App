@@ -1,7 +1,10 @@
+<ng-container *ngIf="formsService.showAddBoardForm">
+  <app-add-board-form></app-add-board-form>
+</ng-container>
 <app-content-header title="Dashboard"></app-content-header>
 <div class="dashboard__block">
   <!-- ngFor temporary -->
-  <div class="dashboard__item dashboard__item--add" appBoardHighlight>
+  <div class="dashboard__item dashboard__item--add" appBoardHighlight (click)="onOpenAddBoardModal()">
     <span class="">+</span>
     <p>Add new</p>
   </div>

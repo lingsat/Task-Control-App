@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormsService } from '../../services/forms.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,9 +10,12 @@ export class DashboardComponent implements OnInit {
   // boards = []; // temporary 
   boards = [1, 2, 3, 4, 5, 6, 7]; // temporary 
 
-  constructor() { }
+  constructor(public formsService: FormsService) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  onOpenAddBoardModal() {
+    this.formsService.openAddBoardForm();
   }
 
 }

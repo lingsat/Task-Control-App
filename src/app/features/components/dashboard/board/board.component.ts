@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormsService } from 'src/app/features/services/forms.service';
 
 @Component({
   selector: 'app-board',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BoardComponent implements OnInit {
 
-  constructor() { }
+  constructor(public formsService: FormsService) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  onOpenAddTaskForm() {
+    this.formsService.openAddTaskForm();
   }
 
 }
