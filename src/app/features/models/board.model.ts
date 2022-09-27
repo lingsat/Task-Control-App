@@ -15,3 +15,17 @@ export interface Task {
   createdDate: Date;
   comments?: string[];
 }
+
+// export interface BoardsResponseObj {
+//   boards: BoardResponse[];
+// }
+
+export interface BoardResponse {
+  createdDate: string;
+  description: string;
+  name: string;
+  tasks: Task[]; // change
+  userId: string;
+  __v?: number;
+  _id: string;
+}

@@ -5,8 +5,8 @@
         class="form__input"
         type="text"
         placeholder="Board Name"
-        ngModel
-        name="boardName"
+        [ngModel]="editDefaultData.name"
+        name="name"
         required
       />
       <textarea
@@ -14,10 +14,11 @@
         id="description"
         rows="5"
         placeholder="Description"
-        ngModel
+        [ngModel]="editDefaultData.description"
         name="description"
+        [disabled]="editMode"
       ></textarea>
-      <button type="submit" class="form__btn" [disabled]="addBoardForm.invalid">Save Board</button>
+      <button type="submit" class="form__btn" [disabled]="addBoardForm.invalid">{{ editMode ? "Edit Board" : "Save Board" }}</button>
       <button
         type="button"
         class="form__close"

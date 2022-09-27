@@ -34,7 +34,7 @@ export class AuthService {
       })
       .pipe(
         tap((resData) => {
-          this.handleAuth(resData.jwt_token, resData.userId, resData.email);
+          this.handleAuth(resData.email, resData.userId,resData.jwt_token);
         })
       );
   }

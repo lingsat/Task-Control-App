@@ -4,28 +4,42 @@
 <app-content-header title="Dashboard"></app-content-header>
 <div class="dashboard__block">
   <!-- ngFor temporary -->
-  <div class="dashboard__item dashboard__item--add" appBoardHighlight (click)="onOpenAddBoardModal()">
+  <div
+    class="dashboard__item dashboard__item--add"
+    appBoardHighlight
+    (click)="onOpenAddBoardModal()"
+  >
     <span class="">+</span>
     <p>Add new</p>
   </div>
   <div
     class="dashboard__item hide-controls"
-    *ngFor="let board of boards; let i = index"
-    routerLink="{{ i }}"
+    *ngFor="let board of userDataService.boards"
+    [routerLink]="board.id"
     appBoardHighlight
   >
-    <h4 class="item__name">Board name</h4>
+    <h4 class="item__name">{{ board.name }}</h4>
     <p class="item__description">
-      Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+      {{ board.description }}
     </p>
     <div class="item__footer">
-      <span class="item__date">23.09.2022</span>
+      <span class="item__date">{{
+        board.createdDate | date: "dd/MM/YYYY"
+      }}</span>
       <div class="item__controls">
         <button type="button">
-          <img src="../../../../assets/images/edit.svg" alt="Edit" />
+          <img 
+            src="../../../../assets/images/edit.svg" 
+            alt="Edit" 
+            (click)="onEditBoard(board); $event.stopPropagation()"
+          />
         </button>
         <button type="button">
-          <img src="../../../../assets/images/delete.svg" alt="Delete" />
+          <img
+            src="../../../../assets/images/delete.svg"
+            alt="Delete"
+            (click)="onDeleteBoard(board.id); $event.stopPropagation()"
+          />
         </button>
       </div>
     </div>

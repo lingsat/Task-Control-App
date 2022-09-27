@@ -51,6 +51,11 @@
     border: 2px solid #aaaba8;
     outline: none;
     resize: none;
+    position: relative;
+
+    &:disabled {
+      background-color: #D2D2D4;
+    }
   }
 
   &__btn {
