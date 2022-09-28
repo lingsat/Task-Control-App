@@ -30,12 +30,6 @@
         font-size: 2rem;
       }
     }
-
-    &:hover {
-      .item__controls {
-        opacity: 1;
-      }
-    }
   }
 }
 
@@ -61,7 +55,6 @@
   }
 
   &__controls {
-    opacity: 0;
     display: flex;
     gap: 8px;
     transition: all 0.1s linear;

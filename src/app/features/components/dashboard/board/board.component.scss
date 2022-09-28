@@ -22,7 +22,6 @@
   }
 
   &__add {
-    margin-bottom: 10px;
     width: 100%;
     font-size: 2rem;
     line-height: 1;
@@ -51,7 +50,11 @@
       }
     }
 
-    &:last-child {
+    &:first-of-type {
+      margin-top: 10px;
+    }
+
+    &:last-of-type {
       margin-bottom: 0;
     }
 

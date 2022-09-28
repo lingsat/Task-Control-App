@@ -1,7 +1,7 @@
 <div class="background" clickOutside (clickOutside)="onCloseAddTaskModal()">
   <div class="wrapper">
     <form class="form" #addTaskForm="ngForm" (ngSubmit)="onSubmit(addTaskForm)">
-      <select class="form__select" ngModel name="taskState" required>
+      <select class="form__select" ngModel="todo" name="taskState" required>
         <option value="todo" [defaultSelected]="true">ToDo</option>
         <option value="progress">In Progress</option>
         <option value="done">Done</option>

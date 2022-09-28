@@ -1,5 +1,6 @@
 import { HttpRequest } from '@angular/common/http';
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Board } from '../../models/board.model';
 import { FormsService } from '../../services/forms.service';
 import { UserDataService } from '../../services/user-data.service';
@@ -9,17 +10,17 @@ import { UserDataService } from '../../services/user-data.service';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
   boards: Board[] = []; 
+  subscription!: Subscription;
 
   constructor(public formsService: FormsService, public userDataService: UserDataService) { }
 
   ngOnInit(): void {
-    this.userDataService.getBoards();
-    // this.userDataService.getBoards().subscribe((boardsRes: any) => {
-    //   this.boards = boardsRes.boards;
-    //   console.log(boardsRes.boards);
-    // })
+    this.userDataService.fetchBoards();
+    this.subscription = this.userDataService.boards.subscribe(boards => {
+      this.boards = boards;
+    });
   }
 
   onOpenAddBoardModal() {
@@ -32,8 +33,10 @@ export class DashboardComponent implements OnInit {
 
   onEditBoard(board: Board) {
     this.formsService.setEditedBoardId(board.id, board.name, board.description);
-    // this.formsService.openAddBoardForm();
-    // console.log(board);
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
  
 }

@@ -4,12 +4,11 @@ export interface Board {
   name: string;
   description: string;
   createdDate: Date;
-  tasks?: Task[];
+  tasks: Task[];
 }
 
 export interface Task {
   id: string;
-  boardId: string;
   name: string;
   status: 'todo' | 'progress' | 'done';
   createdDate: Date;

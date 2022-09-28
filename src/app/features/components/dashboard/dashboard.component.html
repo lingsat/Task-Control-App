@@ -14,7 +14,7 @@
   </div>
   <div
     class="dashboard__item hide-controls"
-    *ngFor="let board of userDataService.boards"
+    *ngFor="let board of boards"
     [routerLink]="board.id"
     appBoardHighlight
   >
