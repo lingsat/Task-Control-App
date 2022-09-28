@@ -1,6 +1,6 @@
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { exhaustMap, take, map, BehaviorSubject } from 'rxjs';
+import { exhaustMap, take, map, BehaviorSubject, Observable } from 'rxjs';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { Board, BoardResponse } from '../models/board.model';
 
@@ -8,11 +8,15 @@ import { Board, BoardResponse } from '../models/board.model';
   providedIn: 'root',
 })
 export class UserDataService {
-  boards = new BehaviorSubject<Board[]>([]);
+  private boards = new BehaviorSubject<Board[]>([]);
 
   constructor(private authService: AuthService, private http: HttpClient) {}
 
   // Boards
+  getBoardsObs(): Observable<Board[]> {
+    return this.boards;
+  }
+
   getBoards() {
     return this.boards.getValue();
   }
@@ -58,7 +62,6 @@ export class UserDataService {
       .subscribe((newBoard: Board) => {
         const newBoards = [...this.getBoards(), newBoard];
         this.setBoards(newBoards);
-        // this.boards = [...this.boards, newBoard];
       });
   }
 
@@ -91,7 +94,6 @@ export class UserDataService {
       )
       .subscribe((boardsArr: Board[]) => {
         this.setBoards(boardsArr);
-        // this.boards = boardsArr;
       });
   }
 
@@ -192,18 +194,86 @@ export class UserDataService {
       });
   }
 
-  setTodoTasks(boardId: string) {
-    // const currentBoard = this.boards.find(board => board.id === boardId);
-    // return currentBoard?.tasks?.filter(task => task.status === 'todo');
+  deleteTask(boardId: string, taskId: string) {
+    if (confirm('Do you really want to delete this Task?')) {
+      this.authService.user
+        .pipe(
+          take(1),
+          exhaustMap((user) => {
+            return this.http.delete(`http://localhost:8080/api/board/task/${boardId}`, {
+              headers: new HttpHeaders({
+                Authorization: `Bearer ${user?.token}`,
+              }),
+              body: { taskId }
+            })
+            .pipe(
+              map((updatedBoard: any) => {
+                return {
+                  userId: updatedBoard.userId,
+                  id: updatedBoard._id,
+                  name: updatedBoard.name,
+                  description: updatedBoard.description,
+                  createdDate: updatedBoard.createdDate,
+                  tasks: updatedBoard.tasks,
+                };
+              })
+            );
+          })
+        )
+        .subscribe((updatedBoard: Board) => {
+          let boardsTemp = this.getBoards().map((board) => {
+            if (board.id === boardId) {
+              return updatedBoard;
+            } else {
+              return board;
+            }
+          });
+          this.setBoards(boardsTemp);
+        });
+    }
   }
 
-  setProgressTasks(boardId: string) {
-    // const currentBoard = this.boards.find(board => board.id === boardId);
-    // return currentBoard?.tasks?.filter(task => task.status === 'progress');
-  }
-
-  setDoneTasks(boardId: string) {
-    // const currentBoard = this.boards.find(board => board.id === boardId);
-    // return currentBoard?.tasks?.filter(task => task.status === 'done');
+  editTask(boardId: string, taskId: string, name: string) {
+    return this.authService.user
+      .pipe(
+        take(1),
+        exhaustMap((user) => {
+          return this.http
+            .put(
+              `http://localhost:8080/api/board/task/edit/${boardId}`,
+              {
+                name,
+                taskId,
+              },
+              {
+                headers: new HttpHeaders({
+                  Authorization: `Bearer ${user?.token}`,
+                }),
+              }
+            )
+            .pipe(
+              map((updatedBoard: any) => {
+                return {
+                  userId: updatedBoard.userId,
+                  id: updatedBoard._id,
+                  name: updatedBoard.name,
+                  description: updatedBoard.description,
+                  createdDate: updatedBoard.createdDate,
+                  tasks: updatedBoard.tasks,
+                };
+              })
+            );
+        })
+      )
+      .subscribe((updatedBoard: Board) => {
+        let boardsTemp = this.getBoards().map((board) => {
+          if (board.id === boardId) {
+            return updatedBoard;
+          } else {
+            return board;
+          }
+        });
+        this.setBoards(boardsTemp);
+      });
   }
 }

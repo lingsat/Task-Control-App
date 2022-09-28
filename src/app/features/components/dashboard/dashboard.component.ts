@@ -1,6 +1,5 @@
-import { HttpRequest } from '@angular/common/http';
-import { Component, ElementRef, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 import { Board } from '../../models/board.model';
 import { FormsService } from '../../services/forms.service';
 import { UserDataService } from '../../services/user-data.service';
@@ -12,15 +11,15 @@ import { UserDataService } from '../../services/user-data.service';
 })
 export class DashboardComponent implements OnInit, OnDestroy {
   boards: Board[] = []; 
-  subscription!: Subscription;
+  boardsSub!: Subscription;
 
   constructor(public formsService: FormsService, public userDataService: UserDataService) { }
 
   ngOnInit(): void {
     this.userDataService.fetchBoards();
-    this.subscription = this.userDataService.boards.subscribe(boards => {
+    this.boardsSub = this.userDataService.getBoardsObs().subscribe(boards => {
       this.boards = boards;
-    });
+    })
   }
 
   onOpenAddBoardModal() {
@@ -36,7 +35,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-  }
- 
+    this.boardsSub.unsubscribe();
+  } 
 }

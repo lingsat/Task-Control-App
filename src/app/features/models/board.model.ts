@@ -9,6 +9,7 @@ export interface Board {
 
 export interface Task {
   id: string;
+  boardId: string;
   name: string;
   status: 'todo' | 'progress' | 'done';
   createdDate: Date;

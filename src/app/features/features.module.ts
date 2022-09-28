@@ -11,6 +11,7 @@ import { ClickOutsideDirective } from './directives/click-outside.directive';
 import { FormsModule } from '@angular/forms';
 import { AddTaskFormComponent } from './components/dashboard/forms/add-task-form/add-task-form.component';
 import { AuthModule } from '../auth/auth.module';
+import { TaskComponent } from './components/dashboard/board/task/task.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { AuthModule } from '../auth/auth.module';
     AddBoardFormComponent,
     ClickOutsideDirective,
     AddTaskFormComponent,
+    TaskComponent,
   ],
   imports: [
     CommonModule,

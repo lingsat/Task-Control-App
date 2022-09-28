@@ -17,9 +17,9 @@ export class ClickOutsideDirective implements AfterViewInit, OnDestroy {
   
   isInside(elementToCheck: HTMLElement): boolean {
     return (
-      elementToCheck.classList.contains('background')
-      // elementToCheck === this.element.nativeElement ||
-      // this.element.nativeElement.contains(elementToCheck)
+      // elementToCheck.classList.contains('background')
+      elementToCheck === this.element.nativeElement 
+      // || this.element.nativeElement.contains(elementToCheck)
     );
   }
 

@@ -8,40 +8,21 @@
     <h3 class="board__subtitle">ToDo</h3>
     <div class="board__card">
       <button type="button" class="board__add" (click)="onOpenAddTaskForm()">+</button>
-      <div class="board__task" *ngFor="let task of todoTasks">
-        <p class="task__text">{{ task.name }}</p>
-        <div class="task__controls">
-          <img src="../../../../assets/images/edit.svg" alt="Edit" />
-          <img src="../../../../assets/images/delete.svg" alt="Delete" />
-        </div>
-      </div>
+      <app-task *ngFor="let task of todoTasks" [task]="task"></app-task>
     </div>
   </div>
   <div class="board__column">
     <h3 class="board__subtitle">In Progress</h3>
     <div class="board__card">
       <button type="button" class="board__add" (click)="onOpenAddTaskForm()">+</button>
-      <div class="board__task" *ngFor="let task of progressTasks">
-        <p class="task__text">Learn NgRx library</p>
-        <div class="task__controls">
-          <img src="../../../../assets/images/edit.svg" alt="Edit" />
-          <img src="../../../../assets/images/delete.svg" alt="Delete" />
-        </div>
-      </div>
+      <app-task *ngFor="let task of progressTasks" [task]="task"></app-task>
     </div>
   </div>
   <div class="board__column">
     <h3 class="board__subtitle">Done</h3>
     <div class="board__card">
       <button type="button" class="board__add" (click)="onOpenAddTaskForm()">+</button>
-      <div class="board__task" *ngFor="let task of doneTasks">
-        <p class="task__text">Learn NgRx library</p>
-        <div class="task__controls">
-          <img src="../../../../assets/images/edit.svg" alt="Edit" />
-          <img src="../../../../assets/images/delete.svg" alt="Delete" />
-          <img src="../../../../assets/images/archive.svg" alt="Archive" />
-        </div>
-      </div>
+      <app-task *ngFor="let task of doneTasks" [task]="task"></app-task>
     </div>
   </div>
 </div>

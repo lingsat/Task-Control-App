@@ -1,0 +1,15 @@
+<div class="task">
+  <p class="task__text">{{ task.name }}</p>
+  <div class="task__controls" [ngClass]="showControls ? 'show' : ''">
+    <img src="../../../../assets/images/edit.svg" alt="Edit" />
+    <img src="../../../../assets/images/delete.svg" alt="Delete" (click)="onDeleteTask()" />
+    <img 
+      *ngIf="task.status === 'done'"
+      src="../../../../assets/images/archive.svg" 
+      alt="Archive"
+    />
+  </div>
+  <div class="task__btn" (click)="onToggleControls()">
+    <div class="task__dot"></div>
+  </div>
+</div>

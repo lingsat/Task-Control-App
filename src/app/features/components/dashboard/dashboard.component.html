@@ -3,7 +3,6 @@
 </ng-container>
 <app-content-header title="Dashboard"></app-content-header>
 <div class="dashboard__block">
-  <!-- ngFor temporary -->
   <div
     class="dashboard__item dashboard__item--add"
     appBoardHighlight
@@ -13,7 +12,7 @@
     <p>Add new</p>
   </div>
   <div
-    class="dashboard__item hide-controls"
+    class="dashboard__item"
     *ngFor="let board of boards"
     [routerLink]="board.id"
     appBoardHighlight

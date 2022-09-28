@@ -27,7 +27,7 @@ export class BoardComponent implements OnInit, OnDestroy {
       this.curentBoardId = data['id'];
     });
 
-    this.subscription = this.userDataService.boards.subscribe(boards => {
+    this.subscription = this.userDataService.getBoardsObs().subscribe(boards => {
       this.cleartasks();
       let curentBoard = boards.find(board => board.id === this.curentBoardId);
       if (curentBoard) {
