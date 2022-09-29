@@ -5,15 +5,17 @@ import { Injectable } from '@angular/core';
 })
 export class FormsService {
   showAddBoardForm: boolean = false;
-
   editedBoardId!: string;
   editBoardMode: boolean = false;
-  editDefaultData: {
+  editDefaultBoardData: {
     name: string;
     description: string;
   } = {name: '', description: ''};
   
   showAddTaskForm: boolean = false;
+  editedTaskId!: string;
+  editTaskMode: boolean = false;
+  editDefaultTaskName: string = '';
 
   constructor() {}
 
@@ -36,12 +38,24 @@ export class FormsService {
   setEditedBoardId(id: string, name: string, description: string) {
     this.editedBoardId = id;
     this.editBoardMode = true;
-    this.editDefaultData = { name, description };
+    this.editDefaultBoardData = { name, description };
     this.openAddBoardForm();
+  }
+
+  setEditedTaskId(taskId: string, name: string) {
+    this.editedTaskId = taskId;
+    this.editTaskMode = true;
+    this.editDefaultTaskName = name;
+    this.openAddTaskForm();
   }
 
   clearBoardMode() {
     this.editBoardMode = false;
-    this.editDefaultData = { name: '', description: ''};
+    this.editDefaultBoardData = { name: '', description: ''};
+  }
+
+  clearTaskMode() {
+    this.editTaskMode = false;
+    this.editDefaultTaskName = '';
   }
 }

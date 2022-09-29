@@ -8,21 +8,27 @@
     <h3 class="board__subtitle">ToDo</h3>
     <div class="board__card">
       <button type="button" class="board__add" (click)="onOpenAddTaskForm()">+</button>
-      <app-task *ngFor="let task of todoTasks" [task]="task"></app-task>
+      <div class="tasks__container">
+        <app-task *ngFor="let task of todoTasks" [task]="task"></app-task>
+      </div>
     </div>
   </div>
   <div class="board__column">
     <h3 class="board__subtitle">In Progress</h3>
     <div class="board__card">
       <button type="button" class="board__add" (click)="onOpenAddTaskForm()">+</button>
-      <app-task *ngFor="let task of progressTasks" [task]="task"></app-task>
+      <div class="tasks__container">
+        <app-task *ngFor="let task of progressTasks" [task]="task"></app-task>
+      </div>
     </div>
   </div>
   <div class="board__column">
     <h3 class="board__subtitle">Done</h3>
     <div class="board__card">
       <button type="button" class="board__add" (click)="onOpenAddTaskForm()">+</button>
-      <app-task *ngFor="let task of doneTasks" [task]="task"></app-task>
+      <div class="tasks__container">
+        <app-task *ngFor="let task of doneTasks" [task]="task"></app-task>
+      </div>
     </div>
   </div>
 </div>

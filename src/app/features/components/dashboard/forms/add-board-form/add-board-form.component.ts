@@ -21,7 +21,7 @@ export class AddBoardFormComponent implements OnInit {
   ngOnInit(): void {
     this.editedBoardId = this.formsService.editedBoardId;
     this.editMode = this.formsService.editBoardMode;
-    this.editDefaultData = this.formsService.editDefaultData;
+    this.editDefaultData = this.formsService.editDefaultBoardData;
   }
 
   onCloseAddBoardModal() {

@@ -1,7 +1,7 @@
-<div class="task">
+<div class="task" draggable="true">
   <p class="task__text">{{ task.name }}</p>
   <div class="task__controls" [ngClass]="showControls ? 'show' : ''">
-    <img src="../../../../assets/images/edit.svg" alt="Edit" />
+    <img src="../../../../assets/images/edit.svg" alt="Edit" (click)="onEditTask()" />
     <img src="../../../../assets/images/delete.svg" alt="Delete" (click)="onDeleteTask()" />
     <img 
       *ngIf="task.status === 'done'"

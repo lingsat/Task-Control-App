@@ -16,11 +16,12 @@
   }
 
   &__card {
-    padding: 10px;
+    padding: 10px 10px 0.1px; // fix somehow
     background-color: #E7EAEF;
   }
 
   &__add {
+    margin-bottom: 10px;
     width: 100%;
     font-size: 2rem;
     line-height: 1;
@@ -32,6 +33,10 @@
       background-color: #AEC09A;
     }
   }
+}
+
+.tasks__container {
+  min-height: 168px;
 }
 
 @media(max-width: 1199.98px) {

@@ -1,7 +1,13 @@
 <div class="background" clickOutside (clickOutside)="onCloseAddTaskModal()">
   <div class="wrapper">
     <form class="form" #addTaskForm="ngForm" (ngSubmit)="onSubmit(addTaskForm)">
-      <select class="form__select" ngModel="todo" name="taskState" required>
+      <select
+        class="form__select"
+        ngModel="todo"
+        name="taskState"
+        required
+        [disabled]="editMode"
+      >
         <option value="todo" [defaultSelected]="true">ToDo</option>
         <option value="progress">In Progress</option>
         <option value="done">Done</option>
@@ -10,12 +16,12 @@
         class="form__textarea"
         rows="3"
         placeholder="Task"
-        ngModel
+        [ngModel]="editDefaultName"
         name="task"
         required
       ></textarea>
       <button type="submit" class="form__btn" [disabled]="addTaskForm.invalid">
-        Save Task
+        {{ editMode ? 'Edit Task' : 'Save Task' }}
       </button>
       <button type="button" class="form__close" (click)="onCloseAddTaskModal()">
         X
