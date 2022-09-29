@@ -4,23 +4,27 @@
 <div class="content">
   <h2 class="content__title">Dashboard</h2>
   <div class="content__controls">
-    <form class="controls__form">
+    <form class="controls__form" #controlsForm="ngForm">
       <fieldset class="controls__fieldset">
         <label for="filter">Filter</label>
-        <input type="text" id="filter" placeholder="Search...">
+        <input
+          type="text"
+          name="filter"
+          [(ngModel)]="searchText"
+          id="filter"
+          placeholder="Search..."
+        />
       </fieldset>
       <fieldset class="controls__fieldset">
         <label for="sort">Sort by</label>
-        <select name="sort" id="sort">
-          <option value="none" disabled [defaultSelected]="true">---</option>
+        <select name="sort" id="sort" [(ngModel)]="sortValue">
+          <option value="createdDate">Date</option>
           <option value="name">Name</option>
-          <option value="date">Date</option>
         </select>
       </fieldset>
       <fieldset class="controls__fieldset">
         <label for="order">Order by</label>
-        <select name="order" id="order">
-          <option value="none" disabled [defaultSelected]="true">---</option>
+        <select name="order" id="order" [(ngModel)]="sortOrder">
           <option value="asc">Ascending</option>
           <option value="desc">Descending</option>
         </select>
@@ -39,7 +43,7 @@
   </div>
   <div
     class="dashboard__item"
-    *ngFor="let board of boards"
+    *ngFor="let board of boards | filtering: searchText | sorting: sortValue: sortOrder"
     [routerLink]="board.id"
     appBoardHighlight
   >
@@ -49,13 +53,13 @@
     </p>
     <div class="item__footer">
       <span class="item__date">{{
-        board.createdDate | date: "dd/MM/YYYY"
+        board.createdDate | date: "dd/MM/YYYY, h:mm a"
       }}</span>
       <div class="item__controls">
         <button type="button">
-          <img 
-            src="../../../../assets/images/edit.svg" 
-            alt="Edit" 
+          <img
+            src="../../../../assets/images/edit.svg"
+            alt="Edit"
             (click)="onEditBoard(board); $event.stopPropagation()"
           />
         </button>

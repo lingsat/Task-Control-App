@@ -12,6 +12,7 @@ import { UserDataService } from 'src/app/features/services/user-data.service';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ThisReceiver } from '@angular/compiler';
+import { SortOrder, SortRules } from 'src/app/features/pipes/sorting.pipe';
 
 @Component({
   selector: 'app-board',
@@ -27,6 +28,10 @@ export class BoardComponent implements OnInit, OnDestroy {
   subscription!: Subscription;
 
   currentDraggableTask!: Task;
+
+  searchText!: string;
+  sortValue: SortRules = 'createdDate';
+  sortOrder: SortOrder = 'asc';
 
   constructor(
     public formsService: FormsService,

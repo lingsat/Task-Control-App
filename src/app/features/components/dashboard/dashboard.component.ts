@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { Board } from '../../models/board.model';
+import { SortOrder, SortRules } from '../../pipes/sorting.pipe';
 import { FormsService } from '../../services/forms.service';
 import { UserDataService } from '../../services/user-data.service';
 
@@ -11,11 +12,15 @@ import { UserDataService } from '../../services/user-data.service';
 })
 export class DashboardComponent implements OnInit, OnDestroy {
   boards: Board[] = []; 
+  searchText!: string;
+  sortValue: SortRules = 'createdDate';
+  sortOrder: SortOrder = 'asc';
   boardsSub!: Subscription;
 
   constructor(public formsService: FormsService, public userDataService: UserDataService) { }
 
   ngOnInit(): void {
+    console.log(this.sortValue);
     this.userDataService.fetchBoards();
     this.boardsSub = this.userDataService.getBoardsObs().subscribe(boards => {
       this.boards = boards;

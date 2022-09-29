@@ -4,23 +4,21 @@
 <div class="content">
   <h2 class="content__title">{{ boardName }}</h2>
   <div class="content__controls">
-    <form class="controls__form">
+    <form class="controls__form" #boardControlForm="ngForm">
       <fieldset class="controls__fieldset">
         <label for="filter">Filter</label>
-        <input type="text" id="filter" placeholder="Search...">
+        <input type="text" name="filter" id="filter" placeholder="Search..." [(ngModel)]="searchText">
       </fieldset>
       <fieldset class="controls__fieldset">
         <label for="sort">Sort by</label>
-        <select name="sort" id="sort">
-          <option value="none" disabled [defaultSelected]="true">---</option>
+        <select name="sort" id="sort" [(ngModel)]="sortValue">
+          <option value="createdDate">Date</option>
           <option value="name">Name</option>
-          <option value="date">Date</option>
         </select>
       </fieldset>
       <fieldset class="controls__fieldset">
         <label for="order">Order by</label>
-        <select name="order" id="order">
-          <option value="none" disabled [defaultSelected]="true">---</option>
+        <select name="order" id="order" [(ngModel)]="sortOrder">
           <option value="asc">Ascending</option>
           <option value="desc">Descending</option>
         </select>
@@ -43,7 +41,7 @@
       >
         <div
           class="task__item"
-          *ngFor="let task of todoTasks"
+          *ngFor="let task of todoTasks | filtering: searchText | sorting: sortValue: sortOrder"
           draggable="true"
           (dragstart)="onDragStart(task)"
         >
@@ -65,7 +63,7 @@
       >
         <div
           class="task__item"
-          *ngFor="let task of progressTasks"
+          *ngFor="let task of progressTasks | filtering: searchText | sorting: sortValue: sortOrder"
           draggable="true"
           (dragstart)="onDragStart(task)"
         >
@@ -87,7 +85,7 @@
       >
         <div
           class="task__item"
-          *ngFor="let task of doneTasks"
+          *ngFor="let task of doneTasks | filtering: searchText | sorting: sortValue: sortOrder"
           draggable="true"
           (dragstart)="onDragStart(task)"
         >

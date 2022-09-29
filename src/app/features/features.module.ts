@@ -12,6 +12,8 @@ import { FormsModule } from '@angular/forms';
 import { AddTaskFormComponent } from './components/dashboard/forms/add-task-form/add-task-form.component';
 import { AuthModule } from '../auth/auth.module';
 import { TaskComponent } from './components/dashboard/board/task/task.component';
+import { FilteringPipe } from './pipes/filtering.pipe';
+import { SortingPipe } from './pipes/sorting.pipe';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,8 @@ import { TaskComponent } from './components/dashboard/board/task/task.component'
     ClickOutsideDirective,
     AddTaskFormComponent,
     TaskComponent,
+    FilteringPipe,
+    SortingPipe,
   ],
   imports: [
     CommonModule,
