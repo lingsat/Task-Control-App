@@ -3,7 +3,7 @@
     <form class="form" #addTaskForm="ngForm" (ngSubmit)="onSubmit(addTaskForm)">
       <select
         class="form__select"
-        ngModel="todo"
+        ngModel
         name="taskState"
         required
         [disabled]="editMode"

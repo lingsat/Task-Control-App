@@ -1,3 +1,49 @@
+.content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  &__title {
+    padding-top: 20px;
+    margin-bottom: 20px;
+  }
+}
+
+.controls {
+  &__form {
+    display: flex;
+    gap: 10px;
+  }
+
+  &__fieldset {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: none;
+
+    label {
+      margin-bottom: 2px;
+      font-size: 0.9rem;
+      line-height: 1;
+      font-weight: 700;
+    }
+
+    input, select {
+      width: 150px;
+      padding: 5px;
+      font-family: "Open Sans";
+      font-size: 1rem;
+      font-weight: 600;
+      line-height: 1;
+      color: #000;
+      border: 2px solid #AAABA8;
+      border-radius: 5px;
+      outline: none;
+
+    }    
+  }
+}
+
 .board {
   &__block {
     display: flex;

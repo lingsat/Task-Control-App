@@ -1,33 +1,98 @@
-
 <ng-container *ngIf="formsService.showAddTaskForm">
   <app-add-task-form></app-add-task-form>
 </ng-container>
-<app-content-header [title]="boardName"></app-content-header>
+<div class="content">
+  <h2 class="content__title">{{ boardName }}</h2>
+  <div class="content__controls">
+    <form class="controls__form">
+      <fieldset class="controls__fieldset">
+        <label for="filter">Filter</label>
+        <input type="text" id="filter" placeholder="Search...">
+      </fieldset>
+      <fieldset class="controls__fieldset">
+        <label for="sort">Sort by</label>
+        <select name="sort" id="sort">
+          <option value="none" disabled [defaultSelected]="true">---</option>
+          <option value="name">Name</option>
+          <option value="date">Date</option>
+        </select>
+      </fieldset>
+      <fieldset class="controls__fieldset">
+        <label for="order">Order by</label>
+        <select name="order" id="order">
+          <option value="none" disabled [defaultSelected]="true">---</option>
+          <option value="asc">Ascending</option>
+          <option value="desc">Descending</option>
+        </select>
+      </fieldset>
+    </form>
+  </div>
+</div>
+
 <div class="board__block">
   <div class="board__column">
     <h3 class="board__subtitle">ToDo</h3>
     <div class="board__card">
-      <button type="button" class="board__add" (click)="onOpenAddTaskForm()">+</button>
-      <div class="tasks__container">
-        <app-task *ngFor="let task of todoTasks" [task]="task"></app-task>
+      <button type="button" class="board__add" (click)="onOpenAddTaskForm()">
+        +
+      </button>
+      <div
+        class="tasks__container"
+        (dragover)="$event.preventDefault()"
+        (drop)="onDrop('todo')"
+      >
+        <div
+          class="task__item"
+          *ngFor="let task of todoTasks"
+          draggable="true"
+          (dragstart)="onDragStart(task)"
+        >
+          <app-task [task]="task"></app-task>
+        </div>
       </div>
     </div>
   </div>
   <div class="board__column">
     <h3 class="board__subtitle">In Progress</h3>
     <div class="board__card">
-      <button type="button" class="board__add" (click)="onOpenAddTaskForm()">+</button>
-      <div class="tasks__container">
-        <app-task *ngFor="let task of progressTasks" [task]="task"></app-task>
+      <button type="button" class="board__add" (click)="onOpenAddTaskForm()">
+        +
+      </button>
+      <div
+        class="tasks__container"
+        (dragover)="$event.preventDefault()"
+        (drop)="onDrop('progress')"
+      >
+        <div
+          class="task__item"
+          *ngFor="let task of progressTasks"
+          draggable="true"
+          (dragstart)="onDragStart(task)"
+        >
+          <app-task [task]="task"></app-task>
+        </div>
       </div>
     </div>
   </div>
   <div class="board__column">
     <h3 class="board__subtitle">Done</h3>
     <div class="board__card">
-      <button type="button" class="board__add" (click)="onOpenAddTaskForm()">+</button>
-      <div class="tasks__container">
-        <app-task *ngFor="let task of doneTasks" [task]="task"></app-task>
+      <button type="button" class="board__add" (click)="onOpenAddTaskForm()">
+        +
+      </button>
+      <div
+        class="tasks__container"
+        (dragover)="$event.preventDefault()"
+        (drop)="onDrop('done')"
+      >
+        <div
+          class="task__item"
+          *ngFor="let task of doneTasks"
+          draggable="true"
+          (dragstart)="onDragStart(task)"
+        >
+          <app-task [task]="task"></app-task>
+        </div>
       </div>
     </div>
   </div>
