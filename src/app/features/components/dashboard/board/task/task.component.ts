@@ -30,4 +30,8 @@ export class TaskComponent implements OnInit {
   onEditTask() {
     this.formsService.setEditedTaskId(this.task.id, this.task.name);
   }
+
+  onArchiveTask() {
+    this.userDataService.archiveTask(this.task.boardId, this.task.id);
+  }
 }

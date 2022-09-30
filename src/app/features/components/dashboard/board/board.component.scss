@@ -63,8 +63,9 @@
   }
 
   &__card {
-    padding: 10px 10px 0.1px; // fix somehow
+    padding: 10px; 
     background-color: #E7EAEF;
+    text-align: center;
   }
 
   &__add {
@@ -84,6 +85,60 @@
 
 .tasks__container {
   min-height: 168px;
+}
+
+.colors {
+  margin-top: 5px;
+  padding: 5px;
+  background-color: #D2D2D4;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+
+  &__item {
+    width: 25px;
+    height: 25px;
+    border: 2px solid #fff;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &--blue {
+      background-color: #81BECE;
+    }
+    &--yellow {
+      background-color: #FEF4C0;
+    }
+    &--green {
+      background-color: #C9D46C;
+    }
+    &--red {
+      background-color: #F1BAA1;
+    }
+    &--violet {
+      background-color: #D39CBD;
+    }
+    &--default {
+      background-color: #E7EAEF;
+    }
+
+    &:hover {
+      border-color: #ED413E;
+    }
+  }
+
+  &__link {
+    font-size: 0.9rem;
+    line-height: 1;
+    color: #217074;
+    text-decoration: none;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
 
 @media(max-width: 1199.98px) {

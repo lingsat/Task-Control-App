@@ -32,6 +32,15 @@ export class BoardComponent implements OnInit, OnDestroy {
   sortValue: SortRules = 'none';
   sortOrder: SortOrder = 'asc';
 
+  colColors = {
+    todo: '#E7EAEF',
+    progress: '#E7EAEF',
+    done: '#E7EAEF',
+  };
+  showTodoColors: boolean = false;
+  showProgressColors: boolean = false;
+  showDoneColors: boolean = false;
+
   constructor(
     public formsService: FormsService,
     private userDataService: UserDataService,
@@ -54,6 +63,7 @@ export class BoardComponent implements OnInit, OnDestroy {
         if (curentBoard) {
           this.boardName = curentBoard.name;
           let tasks = curentBoard.tasks;
+          this.colColors = curentBoard.colColors;
           tasks.forEach((task) => {
             switch (task.status) {
               case 'todo':
@@ -108,6 +118,35 @@ export class BoardComponent implements OnInit, OnDestroy {
       }
       this.userDataService.changeTaskStatus(this.curentBoardId, this.currentDraggableTask.id, status);
     }
+  }
+
+  onShowColors(columnStatus: string) {
+    switch (columnStatus) {
+      case 'todo':
+        this.showTodoColors = !this.showTodoColors;
+        break;
+      case 'progress':
+        this.showProgressColors = !this.showProgressColors;
+        break;
+      case 'done':
+        this.showDoneColors = !this.showDoneColors;
+        break;
+    }
+  }
+
+  onSetColor(columnStatus: string, newColor: string) {
+    switch (columnStatus) {
+      case 'todo':
+        this.showTodoColors = false;
+        break;
+      case 'progress':
+        this.showProgressColors = false;
+        break;
+      case 'done':
+        this.showDoneColors = false;
+        break;
+    }
+    this.userDataService.setBoardColor(this.curentBoardId, columnStatus, newColor);
   }
 
   ngOnDestroy(): void {

@@ -56,6 +56,8 @@ export class UserDataService {
                   todoCount: newBoard.todoCount,
                   progressCount: newBoard.progressCount,
                   doneCount: newBoard.doneCount,
+                  archive: newBoard.archive,
+                  colColors: newBoard.colColors,
                 };
               })
             );
@@ -91,6 +93,8 @@ export class UserDataService {
                     todoCount: board.todoCount,
                     progressCount: board.progressCount,
                     doneCount: board.doneCount,
+                    archive: board.archive,
+                    colColors: board.colColors,
                   };
                 });
               })
@@ -154,6 +158,55 @@ export class UserDataService {
       });
   }
 
+  setBoardColor(boardId: string, columnStatus: string, newColor: string) {
+    return this.authService.user
+      .pipe(
+        take(1),
+        exhaustMap((user) => {
+          return this.http
+            .put(
+              `http://localhost:8080/api/board/setcolor/${boardId}`,
+              {
+                newColor,
+                columnStatus,
+              },
+              {
+                headers: new HttpHeaders({
+                  Authorization: `Bearer ${user?.token}`,
+                }),
+              }
+            )
+            .pipe(
+              map((updatedBoard: any) => {
+                return {
+                  userId: updatedBoard.userId,
+                  id: updatedBoard._id,
+                  name: updatedBoard.name,
+                  description: updatedBoard.description,
+                  createdDate: updatedBoard.createdDate,
+                  tasks: updatedBoard.tasks,
+                  todoCount: updatedBoard.todoCount,
+                  progressCount: updatedBoard.progressCount,
+                  doneCount: updatedBoard.doneCount,
+                  archive: updatedBoard.archive,
+                  colColors: updatedBoard.colColors,
+                };
+              })
+            );
+        })
+      )
+      .subscribe((updatedBoard: Board) => {
+        let boardsTemp = this.getBoards().map((board) => {
+          if (board.id === boardId) {
+            return updatedBoard;
+          } else {
+            return board;
+          }
+        });
+        this.setBoards(boardsTemp);
+      });
+  }
+
   // Tasks
   addTask(id: string, name: string, status: string) {
     return this.authService.user
@@ -185,7 +238,8 @@ export class UserDataService {
                   todoCount: updatedBoard.todoCount,
                   progressCount: updatedBoard.progressCount,
                   doneCount: updatedBoard.doneCount,
-                  
+                  archive: updatedBoard.archive,
+                  colColors: updatedBoard.colColors,
                 };
               })
             );
@@ -228,6 +282,8 @@ export class UserDataService {
                     todoCount: updatedBoard.todoCount,
                     progressCount: updatedBoard.progressCount,
                     doneCount: updatedBoard.doneCount,
+                    archive: updatedBoard.archive,
+                    colColors: updatedBoard.colColors,
                   };
                 })
               );
@@ -276,6 +332,8 @@ export class UserDataService {
                   todoCount: updatedBoard.todoCount,
                   progressCount: updatedBoard.progressCount,
                   doneCount: updatedBoard.doneCount,
+                  archive: updatedBoard.archive,
+                  colColors: updatedBoard.colColors,
                 };
               })
             );
@@ -314,4 +372,49 @@ export class UserDataService {
       )
       .subscribe();
   }
+
+  archiveTask(boardId: string, taskId: string) {
+    if (confirm('Do you really want to remove this task to archive?')) {
+      this.authService.user
+        .pipe(
+          take(1),
+          exhaustMap((user) => {
+            return this.http
+              .delete(`http://localhost:8080/api/board/task/archive/${boardId}`, {
+                headers: new HttpHeaders({
+                  Authorization: `Bearer ${user?.token}`,
+                }),
+                body: { taskId },
+              })
+              .pipe(
+                map((updatedBoard: any) => {
+                  return {
+                    userId: updatedBoard.userId,
+                    id: updatedBoard._id,
+                    name: updatedBoard.name,
+                    description: updatedBoard.description,
+                    createdDate: updatedBoard.createdDate,
+                    tasks: updatedBoard.tasks,
+                    todoCount: updatedBoard.todoCount,
+                    progressCount: updatedBoard.progressCount,
+                    doneCount: updatedBoard.doneCount,
+                    archive: updatedBoard.archive,
+                    colColors: updatedBoard.colColors,
+                  };
+                })
+              );
+          })
+        )
+        .subscribe((updatedBoard: Board) => {
+          let boardsTemp = this.getBoards().map((board) => {
+            if (board.id === boardId) {
+              return updatedBoard;
+            } else {
+              return board;
+            }
+          });
+          this.setBoards(boardsTemp);
+        });
+    }
+  }  
 }

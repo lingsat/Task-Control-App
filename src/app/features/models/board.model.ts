@@ -8,6 +8,12 @@ export interface Board {
   todoCount: number;
   progressCount: number;
   doneCount: number;
+  archive: Task[];
+  colColors: {
+    todo: string;
+    progress: string;
+    done: string;
+  };
 }
 
 export interface Task {
@@ -31,6 +37,12 @@ export interface BoardResponse {
   todoCount: number;
   progressCount: number;
   doneCount: number;
+  archive: Task[];
+  colColors: {
+    todo: string;
+    progress: string;
+    done: string;
+  };
   userId: string;
   __v?: number;
   _id: string;
