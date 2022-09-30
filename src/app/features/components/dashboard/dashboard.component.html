@@ -18,8 +18,15 @@
       <fieldset class="controls__fieldset">
         <label for="sort">Sort by</label>
         <select name="sort" id="sort" [(ngModel)]="sortValue">
-          <option value="createdDate">Date</option>
-          <option value="name">Name</option>
+          <optgroup label="Board">
+            <option value="createdDate">Date</option>
+            <option value="name">Name</option>
+          </optgroup>
+          <optgroup label="Task">
+            <option value="todoCount">ToDo</option>
+            <option value="progressCount">In Progress</option>
+            <option value="doneCount">Done</option>
+          </optgroup>
         </select>
       </fieldset>
       <fieldset class="controls__fieldset">
@@ -71,6 +78,11 @@
           />
         </button>
       </div>
+    </div>
+    <div class="item__stats">
+      <div class="item__stat item__stat--green">{{ board.todoCount }}</div>
+      <div class="item__stat item__stat--yellow">{{ board.progressCount }}</div>
+      <div class="item__stat item__stat--red">{{ board.doneCount }}</div>
     </div>
   </div>
 </div>

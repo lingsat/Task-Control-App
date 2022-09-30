@@ -12,6 +12,7 @@
       <fieldset class="controls__fieldset">
         <label for="sort">Sort by</label>
         <select name="sort" id="sort" [(ngModel)]="sortValue">
+          <option value="none" disabled>---</option>
           <option value="createdDate">Date</option>
           <option value="name">Name</option>
         </select>

@@ -53,6 +53,9 @@ export class UserDataService {
                   description: newBoard.description,
                   createdDate: newBoard.createdDate,
                   tasks: newBoard.tasks,
+                  todoCount: newBoard.todoCount,
+                  progressCount: newBoard.progressCount,
+                  doneCount: newBoard.doneCount,
                 };
               })
             );
@@ -85,6 +88,9 @@ export class UserDataService {
                     description: board.description,
                     createdDate: board.createdDate,
                     tasks: board.tasks,
+                    todoCount: board.todoCount,
+                    progressCount: board.progressCount,
+                    doneCount: board.doneCount,
                   };
                 });
               })
@@ -176,6 +182,10 @@ export class UserDataService {
                   description: updatedBoard.description,
                   createdDate: updatedBoard.createdDate,
                   tasks: updatedBoard.tasks,
+                  todoCount: updatedBoard.todoCount,
+                  progressCount: updatedBoard.progressCount,
+                  doneCount: updatedBoard.doneCount,
+                  
                 };
               })
             );
@@ -215,6 +225,9 @@ export class UserDataService {
                     description: updatedBoard.description,
                     createdDate: updatedBoard.createdDate,
                     tasks: updatedBoard.tasks,
+                    todoCount: updatedBoard.todoCount,
+                    progressCount: updatedBoard.progressCount,
+                    doneCount: updatedBoard.doneCount,
                   };
                 })
               );
@@ -260,6 +273,9 @@ export class UserDataService {
                   description: updatedBoard.description,
                   createdDate: updatedBoard.createdDate,
                   tasks: updatedBoard.tasks,
+                  todoCount: updatedBoard.todoCount,
+                  progressCount: updatedBoard.progressCount,
+                  doneCount: updatedBoard.doneCount,
                 };
               })
             );

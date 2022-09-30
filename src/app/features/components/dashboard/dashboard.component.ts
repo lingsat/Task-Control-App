@@ -20,7 +20,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
   constructor(public formsService: FormsService, public userDataService: UserDataService) { }
 
   ngOnInit(): void {
-    console.log(this.sortValue);
     this.userDataService.fetchBoards();
     this.boardsSub = this.userDataService.getBoardsObs().subscribe(boards => {
       this.boards = boards;

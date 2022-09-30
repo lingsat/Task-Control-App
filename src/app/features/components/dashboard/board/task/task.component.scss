@@ -15,17 +15,24 @@
     line-height: 1;
     font-weight: 500;
   }
+
+  &__date {
+    margin-right: auto;
+    font-size: 0.8rem;
+    color: #217074;
+  }
 }
 
 .task__controls {
   display: none;
+  justify-content: space-between;
+  align-items: center;
   padding-top: 10px;
   padding-right: 5px;
   height: 100%;
   gap: 10px;
   text-align: right;
   img {
-    margin-left: 8px;
     width: 20px;
     height: 20px;
     cursor: pointer;
@@ -38,7 +45,7 @@
 }
 
 .task__controls.show {
-  display: block;
+  display: flex;
 }
 
 .task__btn {

@@ -5,6 +5,9 @@ export interface Board {
   description: string;
   createdDate: Date;
   tasks: Task[];
+  todoCount: number;
+  progressCount: number;
+  doneCount: number;
 }
 
 export interface Task {
@@ -25,6 +28,9 @@ export interface BoardResponse {
   description: string;
   name: string;
   tasks: Task[]; // change
+  todoCount: number;
+  progressCount: number;
+  doneCount: number;
   userId: string;
   __v?: number;
   _id: string;

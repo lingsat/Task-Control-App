@@ -14,6 +14,7 @@ import { AuthModule } from '../auth/auth.module';
 import { TaskComponent } from './components/dashboard/board/task/task.component';
 import { FilteringPipe } from './pipes/filtering.pipe';
 import { SortingPipe } from './pipes/sorting.pipe';
+import { TasksfilterPipe } from './pipes/tasksfilter.pipe';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { SortingPipe } from './pipes/sorting.pipe';
     TaskComponent,
     FilteringPipe,
     SortingPipe,
+    TasksfilterPipe,
   ],
   imports: [
     CommonModule,

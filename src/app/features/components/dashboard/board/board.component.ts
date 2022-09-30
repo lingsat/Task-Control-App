@@ -7,11 +7,10 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { FormsService } from 'src/app/features/services/forms.service';
-import { Board, Task } from 'src/app/features/models/board.model';
+import { Task } from 'src/app/features/models/board.model';
 import { UserDataService } from 'src/app/features/services/user-data.service';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { ThisReceiver } from '@angular/compiler';
 import { SortOrder, SortRules } from 'src/app/features/pipes/sorting.pipe';
 
 @Component({
@@ -30,7 +29,7 @@ export class BoardComponent implements OnInit, OnDestroy {
   currentDraggableTask!: Task;
 
   searchText!: string;
-  sortValue: SortRules = 'createdDate';
+  sortValue: SortRules = 'none';
   sortOrder: SortOrder = 'asc';
 
   constructor(

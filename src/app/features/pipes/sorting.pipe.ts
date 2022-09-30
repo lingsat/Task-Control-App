@@ -2,21 +2,26 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { Board } from '../models/board.model';
 
 export type SortOrder = 'asc' | 'desc';
-export type SortRules = 'name' | 'createdDate';
+export type SortRules = 'none' | 'name' | 'createdDate' | 'todoCount' | 'progressCount' | 'doneCount';
 
 @Pipe({
-  name: 'sorting'
+  name: 'sorting',
 })
 export class SortingPipe implements PipeTransform {
-
   transform(boards: any, sortBy: SortRules, sortOrder: SortOrder) {
-    if (!boards || (sortOrder !== 'asc' && sortOrder !== 'desc')) return boards;
+    if (
+      !boards ||
+      (sortOrder !== 'asc' && sortOrder !== 'desc') ||
+      sortBy === 'none'
+    ) {
+      return boards;
+    }
 
     let sortedBoards = boards.sort((a: Board, b: Board) => {
       if (a[sortBy] < b[sortBy]) {
         return -1;
       } else if (a[sortBy] > b[sortBy]) {
-        return 1
+        return 1;
       } else {
         return 0;
       }
