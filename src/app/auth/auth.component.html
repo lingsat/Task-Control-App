@@ -1,54 +1,7 @@
 <div class="auth">
   <div class="auth__form">
-    <div *ngIf="isLoading">
-      <app-loading-spinner></app-loading-spinner>
-    </div>
-    <form
-      class="form"
-      [formGroup]="authForm"
-      (ngSubmit)="onSubmit()"
-      *ngIf="!isLoading"
-    >
-      <h3 class="form__title">{{ isLoginMode ? "Login" : "Register" }}</h3>
-      <input
-        class="form__input"
-        type="email"
-        name="email"
-        formControlName="email"
-        placeholder="Email"
-      />
-      <input
-        class="form__input"
-        type="password"
-        name="password"
-        formControlName="password"
-        placeholder="Password"
-      />
-      <p
-        class="form__message"
-        *ngIf="
-          authForm.controls['password'].invalid &&
-          authForm.controls['password'].dirty
-        "
-      >
-        Min 8 char, at least 1 letter and 1 number
-      </p>
-      <button
-        class="form__btn"
-        type="submit"
-        [disabled]="authForm.invalid ? true : false"
-      >
-        {{ isLoginMode ? "Login" : "Register" }}
-      </button>
-      <p class="form__footer">
-        {{
-          isLoginMode ? "Don't have an account?" : "Already have an account?"
-        }}
-        <a (click)="onSwitchMode()">
-          {{ isLoginMode ? "Register" : "Sign In" }}</a
-        >
-      </p>
-    </form>
+    <app-register-form *ngIf="!isLoginMode"></app-register-form>
+    <app-login-form *ngIf="isLoginMode"></app-login-form>
   </div>
   <div class="auth__image">
     <img src="../../../../assets/images/auth.jpg" alt="Authorization" />

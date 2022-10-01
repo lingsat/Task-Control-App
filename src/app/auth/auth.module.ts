@@ -5,11 +5,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
+import { RegisterFormComponent } from './forms/register-form/register-form.component';
+import { LoginFormComponent } from './forms/login-form/login-form.component';
 
 
 
 @NgModule({
-  declarations: [AuthComponent],
+  declarations: [AuthComponent, RegisterFormComponent, LoginFormComponent],
   imports: [
     CommonModule,
     HttpClientModule,

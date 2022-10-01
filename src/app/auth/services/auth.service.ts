@@ -1,28 +1,35 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, tap, BehaviorSubject } from 'rxjs';
+import { Observable, tap, BehaviorSubject, Subject } from 'rxjs';
 import {
   AuthResponseData,
   RegistrationResponseData,
 } from '../models/response.model';
 import { User } from '../models/user.model';
 import { Router } from '@angular/router';
+import { FormControl } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   user = new BehaviorSubject<User | null>(null);
+  isLoginMode = new BehaviorSubject<boolean>(true);
 
   constructor(private http: HttpClient, private router: Router) {}
 
   register(
+    login: string,
     email: string,
     password: string
-  ): Observable<RegistrationResponseData> {
-    return this.http.post<RegistrationResponseData>(
+  ): Observable<AuthResponseData> {
+    return this.http.post<AuthResponseData>(
       `http://localhost:8080/api/auth/register`,
-      { email, password }
+      { login, email, password }
+    ).pipe(
+      tap((resData) => {
+        this.handleAuth(resData.login, resData.email, resData.userId,resData.jwt_token);
+      })
     );
   }
 
@@ -34,13 +41,14 @@ export class AuthService {
       })
       .pipe(
         tap((resData) => {
-          this.handleAuth(resData.email, resData.userId,resData.jwt_token);
+          this.handleAuth(resData.login, resData.email, resData.userId,resData.jwt_token);
         })
       );
   }
 
   autoLogin() {
     const userData: {
+      login: string;
       email: string;
       userId: string;
       _token: string;
@@ -50,6 +58,7 @@ export class AuthService {
       return;
     }
     const loadedUser = new User(
+      userData.login,
       userData.email,
       userData.userId,
       userData._token
@@ -66,9 +75,22 @@ export class AuthService {
     localStorage.removeItem('userData');
   }
 
-  private handleAuth(email: string, userId: string, token: string) {
-    const user = new User(email, userId, token);
+  private handleAuth(login: string, email: string, userId: string, token: string) {
+    const user = new User(login, email, userId, token);
     this.user.next(user);
     localStorage.setItem('userData', JSON.stringify(user));
+  }
+
+  setLoginMode(value: boolean) {
+    this.isLoginMode.next(value);
+  }
+
+  // Validators
+  checkEmailValidator(control: FormControl) {
+    const isValid = /^\S+@\S+\.\S+$/.test(control.value);
+    if (control.value !== null && !isValid) {
+      return {checkEmailValidator: true};
+    }
+    return null;
   }
 }

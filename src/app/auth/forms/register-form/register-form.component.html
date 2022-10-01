@@ -1,0 +1,47 @@
+<div *ngIf="isLoading">
+  <app-loading-spinner></app-loading-spinner>
+</div>
+<form class="form" *ngIf="!isLoading" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+  <h3 class="form__title">Register</h3>
+  <input
+    class="form__input"
+    type="login"
+    name="login"
+    formControlName="login"
+    placeholder="login"
+  />
+  <input
+    class="form__input"
+    type="email"
+    name="email"
+    formControlName="email"
+    placeholder="Email"
+  />
+  <input
+    class="form__input"
+    type="password"
+    name="password"
+    formControlName="password"
+    placeholder="Password"
+  />
+  <p
+    class="form__message"
+    *ngIf="
+      registerForm.controls['password'].invalid &&
+      registerForm.controls['password'].dirty
+    "
+  >
+    Min 8 char, at least 1 letter and 1 number
+  </p>
+  <button
+    class="form__btn"
+    type="submit"
+    [disabled]="registerForm.invalid ? true : false"
+  >
+    Register
+  </button>
+  <p class="form__footer">
+    Already have an account?
+    <a (click)="onShowLoginForm()">Sign In</a>
+  </p>
+</form>
