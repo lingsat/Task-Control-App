@@ -14,9 +14,16 @@
     line-height: 1.2;
   }
 
-  &__link {
+  &__buttons {
     margin-left: 50px;
     margin-right: auto;
+    display: flex;
+    gap: 25px;
+  }
+
+  &__link {
+    // margin-left: 50px;
+    // margin-right: auto;
     font-size: 1.3rem;
     line-height: 1.5;
     color: #fff;

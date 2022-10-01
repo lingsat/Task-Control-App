@@ -2,7 +2,10 @@
   <div class="container">
     <div class="header__inner">
       <h1 class="header__logo">Task Control</h1>
-      <a class="header__link" routerLink="/dashboard" *ngIf="isAuth">Dashboard</a>
+      <div class="header__buttons">
+        <a class="header__link" routerLink="/dashboard" *ngIf="isAuth">Dashboard</a>
+        <a class="header__link" routerLink="/dashboard/archive" *ngIf="isAuth">Archive</a>
+      </div>
       <button class="header__btn" *ngIf="isAuth" (click)="onLogout()">Logout</button>
     </div>
   </div>

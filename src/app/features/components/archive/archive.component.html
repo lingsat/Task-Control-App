@@ -1,0 +1,8 @@
+<article class="archive" *ngFor="let board of boards">
+  <div class="archive__block" *ngIf="board.archive.length">
+    <h2 class="archive__title">{{ board.name }}</h2>
+    <ul class="archive__list">
+      <li class="archive__task" *ngFor="let task of board.archive">{{ task.name }}</li>
+    </ul>
+  </div>
+</article>

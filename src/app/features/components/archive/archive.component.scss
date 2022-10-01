@@ -1,0 +1,25 @@
+.archive {
+  padding: 10px 0;
+  text-align: center;
+  &__block {
+    margin-bottom: 10px;
+  }
+
+  &__title {
+    margin-bottom: 5px;
+  }
+
+  &__list {
+    list-style: none;
+  }
+
+  &__task {
+    margin: 0 auto 5px;
+    padding: 10px;
+    width: 100%;
+    max-width: 300px;
+    font-size: 1rem;
+    line-height: 1;
+    background-color: #D2D2D4;
+  }
+}
