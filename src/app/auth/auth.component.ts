@@ -23,7 +23,7 @@ export class AuthComponent implements OnInit {
     }
 
     this.authForm = new FormGroup({
-      email: new FormControl(null, [Validators.required, Validators.email]),
+      email: new FormControl(null, [Validators.required, this.checkEmailValidator]),
       password: new FormControl(null, [Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)]),
     });
   }
@@ -62,5 +62,13 @@ export class AuthComponent implements OnInit {
       });
     }
     this.authForm.reset();
+  }
+
+  checkEmailValidator(control: FormControl) {
+    const isValid = /^\S+@\S+\.\S+$/.test(control.value);
+    if (control.value !== null && !isValid) {
+      return {checkEmailValidator: true};
+    }
+    return null;
   }
 }
