@@ -2,7 +2,7 @@ export interface Board {
   userId: string | undefined;
   id: string;
   name: string;
-  description: string;
+  readonly description: string;
   createdDate: Date;
   tasks: Task[];
   todoCount: number;

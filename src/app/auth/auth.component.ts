@@ -24,16 +24,17 @@ export class AuthComponent implements OnInit {
 
     this.authForm = new FormGroup({
       email: new FormControl(null, [Validators.required, Validators.email]),
-      password: new FormControl(null, [Validators.required]),
+      password: new FormControl(null, [Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)]),
     });
   }
 
   onSwitchMode() {
     this.isLoginMode = !this.isLoginMode;
+    this.authForm.reset();
   }
 
   onSubmit() {
-    const { email, password } = this.authForm.value;
+    const { login, email, password } = this.authForm.value;
 
     this.isLoading = true;
     if (this.isLoginMode) {

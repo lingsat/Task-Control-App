@@ -3,7 +3,12 @@
     <div *ngIf="isLoading">
       <app-loading-spinner></app-loading-spinner>
     </div>
-    <form class="form" [formGroup]="authForm" (ngSubmit)="onSubmit()" *ngIf="!isLoading">
+    <form
+      class="form"
+      [formGroup]="authForm"
+      (ngSubmit)="onSubmit()"
+      *ngIf="!isLoading"
+    >
       <h3 class="form__title">{{ isLoginMode ? "Login" : "Register" }}</h3>
       <input
         class="form__input"
@@ -19,7 +24,20 @@
         formControlName="password"
         placeholder="Password"
       />
-      <button class="form__btn" type="submit" [disabled]="authForm.invalid ? true : false">
+      <p
+        class="form__message"
+        *ngIf="
+          authForm.controls['password'].invalid &&
+          authForm.controls['password'].dirty
+        "
+      >
+        Min 8 char, at least 1 letter and 1 number
+      </p>
+      <button
+        class="form__btn"
+        type="submit"
+        [disabled]="authForm.invalid ? true : false"
+      >
         {{ isLoginMode ? "Login" : "Register" }}
       </button>
       <p class="form__footer">
@@ -27,9 +45,8 @@
           isLoginMode ? "Don't have an account?" : "Already have an account?"
         }}
         <a (click)="onSwitchMode()">
-          {{
-            isLoginMode ? "Register" : "Sign In"
-          }}</a>
+          {{ isLoginMode ? "Register" : "Sign In" }}</a
+        >
       </p>
     </form>
   </div>

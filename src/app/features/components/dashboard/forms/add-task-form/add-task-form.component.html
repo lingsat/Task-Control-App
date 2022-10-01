@@ -19,6 +19,7 @@
         [ngModel]="editDefaultName"
         name="task"
         required
+        pattern="^(\s+\S+\s*)*(?!\s).*$"
       ></textarea>
       <button type="submit" class="form__btn" [disabled]="addTaskForm.invalid">
         {{ editMode ? 'Edit Task' : 'Save Task' }}
