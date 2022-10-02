@@ -373,6 +373,48 @@ export class UserDataService {
       .subscribe();
   }
 
+  addTaskComment(boardId: string, taskId: string, comment: string) {
+    return this.authService.user
+      .pipe(
+        take(1),
+        exhaustMap((user) => {
+          return this.http
+            .put(
+              `http://localhost:8080/api/board/task/comment/${boardId}`,
+              {
+                comment,
+                taskId,
+              },
+              {
+                headers: new HttpHeaders({
+                  Authorization: `Bearer ${user?.token}`,
+                }),
+              }
+            )
+        })
+      )
+      .subscribe();
+  }
+
+  deleteTaskComment(boardId: string, taskId: string, commentIndex: number) {
+    if (confirm('Do you really want to delete this Comment?')) {
+      this.authService.user
+        .pipe(
+          take(1),
+          exhaustMap((user) => {
+            return this.http
+              .delete(`http://localhost:8080/api/board/task/comment/${boardId}`, {
+                headers: new HttpHeaders({
+                  Authorization: `Bearer ${user?.token}`,
+                }),
+                body: { commentIndex, taskId },
+              })
+          })
+        )
+        .subscribe();
+    }
+  }
+
   archiveTask(boardId: string, taskId: string) {
     if (confirm('Do you really want to remove this task to archive?')) {
       this.authService.user

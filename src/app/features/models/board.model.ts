@@ -22,12 +22,9 @@ export interface Task {
   name: string;
   status: 'todo' | 'progress' | 'done';
   createdDate: Date;
-  comments?: string[];
+  comments: string[];
+  commentsCounter: number;
 }
-
-// export interface BoardsResponseObj {
-//   boards: BoardResponse[];
-// }
 
 export interface BoardResponse {
   createdDate: string;

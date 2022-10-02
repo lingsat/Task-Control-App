@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, tap, BehaviorSubject, Subject } from 'rxjs';
-import {
-  AuthResponseData,
-  RegistrationResponseData,
-} from '../models/response.model';
+import { Observable, tap, BehaviorSubject } from 'rxjs';
+import { AuthResponseData } from '../models/response.model';
 import { User } from '../models/user.model';
 import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
@@ -23,14 +20,22 @@ export class AuthService {
     email: string,
     password: string
   ): Observable<AuthResponseData> {
-    return this.http.post<AuthResponseData>(
-      `http://localhost:8080/api/auth/register`,
-      { login, email, password }
-    ).pipe(
-      tap((resData) => {
-        this.handleAuth(resData.login, resData.email, resData.userId,resData.jwt_token);
+    return this.http
+      .post<AuthResponseData>(`http://localhost:8080/api/auth/register`, {
+        login,
+        email,
+        password,
       })
-    );
+      .pipe(
+        tap((resData) => {
+          this.handleAuth(
+            resData.login,
+            resData.email,
+            resData.userId,
+            resData.jwt_token
+          );
+        })
+      );
   }
 
   login(email: string, password: string): Observable<AuthResponseData> {
@@ -41,7 +46,12 @@ export class AuthService {
       })
       .pipe(
         tap((resData) => {
-          this.handleAuth(resData.login, resData.email, resData.userId,resData.jwt_token);
+          this.handleAuth(
+            resData.login,
+            resData.email,
+            resData.userId,
+            resData.jwt_token
+          );
         })
       );
   }
@@ -75,7 +85,12 @@ export class AuthService {
     localStorage.removeItem('userData');
   }
 
-  private handleAuth(login: string, email: string, userId: string, token: string) {
+  private handleAuth(
+    login: string,
+    email: string,
+    userId: string,
+    token: string
+  ) {
     const user = new User(login, email, userId, token);
     this.user.next(user);
     localStorage.setItem('userData', JSON.stringify(user));
@@ -89,7 +104,7 @@ export class AuthService {
   checkEmailValidator(control: FormControl) {
     const isValid = /^\S+@\S+\.\S+$/.test(control.value);
     if (control.value !== null && !isValid) {
-      return {checkEmailValidator: true};
+      return { checkEmailValidator: true };
     }
     return null;
   }

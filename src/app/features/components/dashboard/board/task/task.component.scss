@@ -1,15 +1,10 @@
 .task {
   position: relative;
-  padding: 15px 25px 15px 15px;
+  padding: 15px 25px 5px 15px;
   margin-bottom: 10px;
   background-color: #D2D2D4;
   text-align: left;
-  cursor: pointer;
   transition: all 0.1s linear;
-
-  &:hover {
-    background-color: #AEC09A;
-  }
   
   .task__text {
     font-size: 1rem;
@@ -40,7 +35,7 @@
     transition: all 0.1s linear;
 
     &:hover {
-      transform: translate(2px, -2px);
+      opacity: 0.7;
     }
   }
 }
@@ -51,14 +46,14 @@
 
 .task__btn {
   width: 20px;
-  height: 100%;
+  height: 45px;
   padding-left: 5px;
   padding-right: 5px;
   position: absolute;
-  top: 50%;
+  top: 0;
   right: 5px;
   z-index: 1;
-  transform: translateY(-50%);
+  cursor: pointer;
 
   &:hover {
     .task__dot,
@@ -96,4 +91,107 @@
   &::after {
     top: 11px;    
   }
+}
+
+.task__comments {
+  margin-top: 10px;
+  width: 50px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+
+  img {
+    width: 18px;
+    height: 18px;
+  }
+
+  span {
+    width: 30px;
+    font-size: 1rem;
+    text-align: center;
+    color: #217074;
+  }
+
+  &:hover {
+    span, img {
+      opacity: 0.7;;
+    }
+  }
+}
+
+.comments {
+  display: none;
+  margin: 10px 0;
+  &__list {
+    list-style: none;
+  }
+
+  &__item {
+    width: 98%;
+    margin-bottom: 5px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #E7EAEF;
+    position: relative;
+  }
+
+  &__text {
+    font-size: 1rem;
+    line-height: 1;
+  }
+
+  &__delete {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 50%;
+    right: -25px;
+    z-index: 1;
+    transform: translateY(-50%);
+    transition: all 0.1s linear;    
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+
+  &__form {
+    margin-top: 10px;
+    width: 98%;
+    display: grid;
+    grid-template-columns: 1fr 50px;
+
+    textarea {
+      padding: 10px;
+      font-size: 1rem;
+      line-height: 1;
+      border: 2px solid #217074;
+      border-right: none;
+      border-radius: 10px 0 0 10px;
+      outline: none;
+      resize: none;
+    }
+
+    button {
+      font-family: "Open Sans";
+      font-size: 1rem;
+      line-height: 1;
+      font-weight: 600;
+      color: #217074;
+      border: 2px solid #217074;
+      border-radius: 0 10px 10px 0;
+      cursor: pointer;
+      transition: all 0.1s linear;
+
+      &:hover {
+        color: #E7EAEF;
+        background-color: #217074;
+      }
+    }    
+  }
+}
+
+.comments.show {
+  display: block;
 }

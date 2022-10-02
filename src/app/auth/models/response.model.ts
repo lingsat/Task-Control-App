@@ -4,7 +4,3 @@ export interface AuthResponseData {
   email: string;
   login: string;
 }
-
-export interface RegistrationResponseData {
-  message: string;
-}
