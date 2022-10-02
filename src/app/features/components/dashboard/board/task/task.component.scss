@@ -26,18 +26,7 @@
   padding-top: 10px;
   padding-right: 5px;
   height: 100%;
-  gap: 10px;
   text-align: right;
-  img {
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-    transition: all 0.1s linear;
-
-    &:hover {
-      opacity: 0.7;
-    }
-  }
 }
 
 .task__controls.show {
@@ -95,12 +84,13 @@
 
 .task__comments {
   margin-top: 10px;
-  width: 50px;
+  width: 53px;
   display: flex;
   align-items: center;
   cursor: pointer;
 
   img {
+    margin-right: 5px;
     width: 18px;
     height: 18px;
   }
@@ -108,7 +98,6 @@
   span {
     width: 30px;
     font-size: 1rem;
-    text-align: center;
     color: #217074;
   }
 
@@ -127,7 +116,7 @@
   }
 
   &__item {
-    width: 98%;
+    width: 96%;
     margin-bottom: 5px;
     padding: 10px;
     border-radius: 10px;
@@ -141,24 +130,35 @@
   }
 
   &__delete {
-    width: 20px;
-    height: 20px;
+    width: 30px;
+    height: 30px;
     position: absolute;
     top: 50%;
-    right: -25px;
+    right: -33px;
     z-index: 1;
     transform: translateY(-50%);
-    transition: all 0.1s linear;    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    border-radius: 50%;
+    border: none;
     cursor: pointer;
-
+    transition: all 0.1s linear;
+  
+    img {
+      width: 20px;
+      height:20px;
+    }
+  
     &:hover {
-      opacity: 0.7;
+      background-color: #E7EAEF;
     }
   }
 
   &__form {
     margin-top: 10px;
-    width: 98%;
+    width: 96%;
     display: grid;
     grid-template-columns: 1fr 50px;
 
@@ -189,6 +189,28 @@
         background-color: #217074;
       }
     }    
+  }
+}
+
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  background-color: transparent;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  transition: all 0.1s linear;
+
+  img {
+    width: 20px;
+    height:20px;
+  }
+
+  &:hover {
+    background-color: #E7EAEF;
   }
 }
 

@@ -16,7 +16,7 @@ import { LoginFormComponent } from './forms/login-form/login-form.component';
     CommonModule,
     HttpClientModule,
     ReactiveFormsModule,
-    SharedModule,
+    SharedModule,   
     RouterModule.forChild([{ path: '', component: AuthComponent}])
   ]
 })

@@ -8,6 +8,7 @@ import { Board, BoardResponse } from '../models/board.model';
   providedIn: 'root',
 })
 export class UserDataService {
+  private boardsGeted: boolean = false;
   private boards = new BehaviorSubject<Board[]>([]);
 
   constructor(private authService: AuthService, private http: HttpClient) {}
@@ -23,6 +24,10 @@ export class UserDataService {
 
   setBoards(boards: Board[]) {
     this.boards.next(boards);
+  }
+
+  clearBoardsRequestState() {
+    this.boardsGeted = false;
   }
 
   addBoard(name: string, description: string) {
@@ -70,40 +75,43 @@ export class UserDataService {
   }
 
   fetchBoards() {
-    this.authService.user
-      .pipe(
-        take(1),
-        exhaustMap((user) => {
-          return this.http
-            .get('http://localhost:8080/api/board', {
-              headers: new HttpHeaders({
-                Authorization: `Bearer ${user?.token}`,
-              }),
-            })
-            .pipe(
-              map((boards: any) => {
-                return boards.boards.map((board: BoardResponse) => {
-                  return {
-                    userId: board.userId,
-                    id: board._id,
-                    name: board.name,
-                    description: board.description,
-                    createdDate: board.createdDate,
-                    tasks: board.tasks,
-                    todoCount: board.todoCount,
-                    progressCount: board.progressCount,
-                    doneCount: board.doneCount,
-                    archive: board.archive,
-                    colColors: board.colColors,
-                  };
-                });
+    if (!this.boardsGeted) {
+      this.authService.user
+        .pipe(
+          take(1),
+          exhaustMap((user) => {
+            return this.http
+              .get('http://localhost:8080/api/board', {
+                headers: new HttpHeaders({
+                  Authorization: `Bearer ${user?.token}`,
+                }),
               })
-            );
-        })
-      )
-      .subscribe((boardsArr: Board[]) => {
-        this.setBoards(boardsArr);
-      });
+              .pipe(
+                map((boards: any) => {
+                  return boards.boards.map((board: BoardResponse) => {
+                    return {
+                      userId: board.userId,
+                      id: board._id,
+                      name: board.name,
+                      description: board.description,
+                      createdDate: board.createdDate,
+                      tasks: board.tasks,
+                      todoCount: board.todoCount,
+                      progressCount: board.progressCount,
+                      doneCount: board.doneCount,
+                      archive: board.archive,
+                      colColors: board.colColors,
+                    };
+                  });
+                })
+              );
+          })
+        )
+        .subscribe((boardsArr: Board[]) => {
+          this.setBoards(boardsArr);
+          this.boardsGeted = true;
+        });
+    }
   }
 
   deleteBoard(id: string) {

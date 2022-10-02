@@ -3,10 +3,27 @@
     <div class="header__inner">
       <h1 class="header__logo">Task Control</h1>
       <div class="header__buttons">
-        <a class="header__link" routerLink="/dashboard" *ngIf="isAuth">Dashboard</a>
-        <a class="header__link" routerLink="/dashboard/archive" *ngIf="isAuth">Archive</a>
+        <a
+          class="header__link"
+          routerLink="/dashboard"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{exact: true}"
+          *ngIf="isAuth"
+          >Dashboard</a
+        >
+        <a
+          class="header__link"
+          routerLink="/dashboard/archive"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{exact: true}"
+          *ngIf="isAuth"
+          >Archive</a
+        >
       </div>
-      <button class="header__btn" *ngIf="isAuth" (click)="onLogout()">Logout</button>
+      <p class="header__username">{{ userName }}</p>
+      <button class="header__btn" *ngIf="isAuth" (click)="onLogout()">
+        Logout
+      </button>
     </div>
   </div>
 </header>
