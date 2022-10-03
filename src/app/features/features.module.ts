@@ -4,7 +4,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { BoardComponent } from './components/dashboard/board/board.component';
 import { BoardHighlightDirective } from './directives/board-highlight.directive';
 import { SharedModule } from '../shared/shared.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FeaturesRoutingModule } from './features-routing.module';
 import { AddBoardFormComponent } from './components/dashboard/forms/add-board-form/add-board-form.component';
 import { ClickOutsideDirective } from './directives/click-outside.directive';
@@ -16,6 +16,7 @@ import { FilteringPipe } from './pipes/filtering.pipe';
 import { SortingPipe } from './pipes/sorting.pipe';
 import { TasksfilterPipe } from './pipes/tasksfilter.pipe';
 import { ArchiveComponent } from './components/archive/archive.component';
+import { AuthInterceptorService } from '../auth/services/auth-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -39,5 +40,6 @@ import { ArchiveComponent } from './components/archive/archive.component';
     FormsModule,
     AuthModule,
   ],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}],
 })
 export class FeaturesModule { }

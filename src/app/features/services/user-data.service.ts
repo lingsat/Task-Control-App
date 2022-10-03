@@ -31,41 +31,26 @@ export class UserDataService {
   }
 
   addBoard(name: string, description: string) {
-    return this.authService.user
+    this.http
+      .post('http://localhost:8080/api/board', {
+        name,
+        description,
+      })
       .pipe(
-        take(1),
-        exhaustMap((user) => {
-          return this.http
-            .post(
-              'http://localhost:8080/api/board',
-              {
-                name,
-                description,
-              },
-              {
-                headers: new HttpHeaders({
-                  'Content-Type': 'application/json',
-                  Authorization: `Bearer ${user?.token}`,
-                }),
-              }
-            )
-            .pipe(
-              map((newBoard: any) => {
-                return {
-                  userId: newBoard.userId,
-                  id: newBoard._id,
-                  name: newBoard.name,
-                  description: newBoard.description,
-                  createdDate: newBoard.createdDate,
-                  tasks: newBoard.tasks,
-                  todoCount: newBoard.todoCount,
-                  progressCount: newBoard.progressCount,
-                  doneCount: newBoard.doneCount,
-                  archive: newBoard.archive,
-                  colColors: newBoard.colColors,
-                };
-              })
-            );
+        map((newBoard: any) => {
+          return {
+            userId: newBoard.userId,
+            id: newBoard._id,
+            name: newBoard.name,
+            description: newBoard.description,
+            createdDate: newBoard.createdDate,
+            tasks: newBoard.tasks,
+            todoCount: newBoard.todoCount,
+            progressCount: newBoard.progressCount,
+            doneCount: newBoard.doneCount,
+            archive: newBoard.archive,
+            colColors: newBoard.colColors,
+          };
         })
       )
       .subscribe((newBoard: Board) => {
@@ -76,35 +61,25 @@ export class UserDataService {
 
   fetchBoards() {
     if (!this.boardsGeted) {
-      this.authService.user
+      this.http
+        .get('http://localhost:8080/api/board')
         .pipe(
-          take(1),
-          exhaustMap((user) => {
-            return this.http
-              .get('http://localhost:8080/api/board', {
-                headers: new HttpHeaders({
-                  Authorization: `Bearer ${user?.token}`,
-                }),
-              })
-              .pipe(
-                map((boards: any) => {
-                  return boards.boards.map((board: BoardResponse) => {
-                    return {
-                      userId: board.userId,
-                      id: board._id,
-                      name: board.name,
-                      description: board.description,
-                      createdDate: board.createdDate,
-                      tasks: board.tasks,
-                      todoCount: board.todoCount,
-                      progressCount: board.progressCount,
-                      doneCount: board.doneCount,
-                      archive: board.archive,
-                      colColors: board.colColors,
-                    };
-                  });
-                })
-              );
+          map((boards: any) => {
+            return boards.boards.map((board: BoardResponse) => {
+              return {
+                userId: board.userId,
+                id: board._id,
+                name: board.name,
+                description: board.description,
+                createdDate: board.createdDate,
+                tasks: board.tasks,
+                todoCount: board.todoCount,
+                progressCount: board.progressCount,
+                doneCount: board.doneCount,
+                archive: board.archive,
+                colColors: board.colColors,
+              };
+            });
           })
         )
         .subscribe((boardsArr: Board[]) => {
@@ -115,18 +90,9 @@ export class UserDataService {
   }
 
   deleteBoard(id: string) {
-    if (confirm('Do you really want to delete this Board?')) {
-      this.authService.user
-        .pipe(
-          take(1),
-          exhaustMap((user) => {
-            return this.http.delete(`http://localhost:8080/api/board/${id}`, {
-              headers: new HttpHeaders({
-                Authorization: `Bearer ${user?.token}`,
-              }),
-            });
-          })
-        )
+    if (confirm('Do you want to delete this Board?')) {
+      this.http
+        .delete(`http://localhost:8080/api/board/${id}`)
         .subscribe(() => {
           let boardTemp = this.getBoards();
           const delIndex = boardTemp.findIndex((board) => board.id === id);
@@ -137,23 +103,8 @@ export class UserDataService {
   }
 
   editBoard(id: string, name: string) {
-    this.authService.user
-      .pipe(
-        take(1),
-        exhaustMap((user) => {
-          return this.http.put(
-            `http://localhost:8080/api/board/${id}`,
-            {
-              name,
-            },
-            {
-              headers: new HttpHeaders({
-                Authorization: `Bearer ${user?.token}`,
-              }),
-            }
-          );
-        })
-      )
+    this.http
+      .put(`http://localhost:8080/api/board/${id}`, { name })
       .subscribe(() => {
         let boardTemp = this.getBoards().map((board) => {
           if (board.id === id) {
@@ -167,40 +118,26 @@ export class UserDataService {
   }
 
   setBoardColor(boardId: string, columnStatus: string, newColor: string) {
-    return this.authService.user
+    this.http
+      .put(`http://localhost:8080/api/board/setcolor/${boardId}`, {
+        newColor,
+        columnStatus,
+      })
       .pipe(
-        take(1),
-        exhaustMap((user) => {
-          return this.http
-            .put(
-              `http://localhost:8080/api/board/setcolor/${boardId}`,
-              {
-                newColor,
-                columnStatus,
-              },
-              {
-                headers: new HttpHeaders({
-                  Authorization: `Bearer ${user?.token}`,
-                }),
-              }
-            )
-            .pipe(
-              map((updatedBoard: any) => {
-                return {
-                  userId: updatedBoard.userId,
-                  id: updatedBoard._id,
-                  name: updatedBoard.name,
-                  description: updatedBoard.description,
-                  createdDate: updatedBoard.createdDate,
-                  tasks: updatedBoard.tasks,
-                  todoCount: updatedBoard.todoCount,
-                  progressCount: updatedBoard.progressCount,
-                  doneCount: updatedBoard.doneCount,
-                  archive: updatedBoard.archive,
-                  colColors: updatedBoard.colColors,
-                };
-              })
-            );
+        map((updatedBoard: any) => {
+          return {
+            userId: updatedBoard.userId,
+            id: updatedBoard._id,
+            name: updatedBoard.name,
+            description: updatedBoard.description,
+            createdDate: updatedBoard.createdDate,
+            tasks: updatedBoard.tasks,
+            todoCount: updatedBoard.todoCount,
+            progressCount: updatedBoard.progressCount,
+            doneCount: updatedBoard.doneCount,
+            archive: updatedBoard.archive,
+            colColors: updatedBoard.colColors,
+          };
         })
       )
       .subscribe((updatedBoard: Board) => {
@@ -217,40 +154,26 @@ export class UserDataService {
 
   // Tasks
   addTask(id: string, name: string, status: string) {
-    return this.authService.user
+    this.http
+      .put(`http://localhost:8080/api/board/task/${id}`, {
+        name,
+        status,
+      })
       .pipe(
-        take(1),
-        exhaustMap((user) => {
-          return this.http
-            .put(
-              `http://localhost:8080/api/board/task/${id}`,
-              {
-                name,
-                status,
-              },
-              {
-                headers: new HttpHeaders({
-                  Authorization: `Bearer ${user?.token}`,
-                }),
-              }
-            )
-            .pipe(
-              map((updatedBoard: any) => {
-                return {
-                  userId: updatedBoard.userId,
-                  id: updatedBoard._id,
-                  name: updatedBoard.name,
-                  description: updatedBoard.description,
-                  createdDate: updatedBoard.createdDate,
-                  tasks: updatedBoard.tasks,
-                  todoCount: updatedBoard.todoCount,
-                  progressCount: updatedBoard.progressCount,
-                  doneCount: updatedBoard.doneCount,
-                  archive: updatedBoard.archive,
-                  colColors: updatedBoard.colColors,
-                };
-              })
-            );
+        map((updatedBoard: any) => {
+          return {
+            userId: updatedBoard.userId,
+            id: updatedBoard._id,
+            name: updatedBoard.name,
+            description: updatedBoard.description,
+            createdDate: updatedBoard.createdDate,
+            tasks: updatedBoard.tasks,
+            todoCount: updatedBoard.todoCount,
+            progressCount: updatedBoard.progressCount,
+            doneCount: updatedBoard.doneCount,
+            archive: updatedBoard.archive,
+            colColors: updatedBoard.colColors,
+          };
         })
       )
       .subscribe((updatedBoard: Board) => {
@@ -266,35 +189,26 @@ export class UserDataService {
   }
 
   deleteTask(boardId: string, taskId: string) {
-    if (confirm('Do you really want to delete this Task?')) {
-      this.authService.user
+    if (confirm('Do you want to delete this Task?')) {
+      this.http
+        .delete(`http://localhost:8080/api/board/task/${boardId}`, {
+          body: { taskId },
+        })
         .pipe(
-          take(1),
-          exhaustMap((user) => {
-            return this.http
-              .delete(`http://localhost:8080/api/board/task/${boardId}`, {
-                headers: new HttpHeaders({
-                  Authorization: `Bearer ${user?.token}`,
-                }),
-                body: { taskId },
-              })
-              .pipe(
-                map((updatedBoard: any) => {
-                  return {
-                    userId: updatedBoard.userId,
-                    id: updatedBoard._id,
-                    name: updatedBoard.name,
-                    description: updatedBoard.description,
-                    createdDate: updatedBoard.createdDate,
-                    tasks: updatedBoard.tasks,
-                    todoCount: updatedBoard.todoCount,
-                    progressCount: updatedBoard.progressCount,
-                    doneCount: updatedBoard.doneCount,
-                    archive: updatedBoard.archive,
-                    colColors: updatedBoard.colColors,
-                  };
-                })
-              );
+          map((updatedBoard: any) => {
+            return {
+              userId: updatedBoard.userId,
+              id: updatedBoard._id,
+              name: updatedBoard.name,
+              description: updatedBoard.description,
+              createdDate: updatedBoard.createdDate,
+              tasks: updatedBoard.tasks,
+              todoCount: updatedBoard.todoCount,
+              progressCount: updatedBoard.progressCount,
+              doneCount: updatedBoard.doneCount,
+              archive: updatedBoard.archive,
+              colColors: updatedBoard.colColors,
+            };
           })
         )
         .subscribe((updatedBoard: Board) => {
@@ -311,40 +225,26 @@ export class UserDataService {
   }
 
   editTask(boardId: string, taskId: string, name: string) {
-    return this.authService.user
+    this.http
+      .put(`http://localhost:8080/api/board/task/edit/${boardId}`, {
+        name,
+        taskId,
+      })
       .pipe(
-        take(1),
-        exhaustMap((user) => {
-          return this.http
-            .put(
-              `http://localhost:8080/api/board/task/edit/${boardId}`,
-              {
-                name,
-                taskId,
-              },
-              {
-                headers: new HttpHeaders({
-                  Authorization: `Bearer ${user?.token}`,
-                }),
-              }
-            )
-            .pipe(
-              map((updatedBoard: any) => {
-                return {
-                  userId: updatedBoard.userId,
-                  id: updatedBoard._id,
-                  name: updatedBoard.name,
-                  description: updatedBoard.description,
-                  createdDate: updatedBoard.createdDate,
-                  tasks: updatedBoard.tasks,
-                  todoCount: updatedBoard.todoCount,
-                  progressCount: updatedBoard.progressCount,
-                  doneCount: updatedBoard.doneCount,
-                  archive: updatedBoard.archive,
-                  colColors: updatedBoard.colColors,
-                };
-              })
-            );
+        map((updatedBoard: any) => {
+          return {
+            userId: updatedBoard.userId,
+            id: updatedBoard._id,
+            name: updatedBoard.name,
+            description: updatedBoard.description,
+            createdDate: updatedBoard.createdDate,
+            tasks: updatedBoard.tasks,
+            todoCount: updatedBoard.todoCount,
+            progressCount: updatedBoard.progressCount,
+            doneCount: updatedBoard.doneCount,
+            archive: updatedBoard.archive,
+            colColors: updatedBoard.colColors,
+          };
         })
       )
       .subscribe((updatedBoard: Board) => {
@@ -360,99 +260,80 @@ export class UserDataService {
   }
 
   changeTaskStatus(boardId: string, taskId: string, status: string) {
-    return this.authService.user
+    this.http
+      .put(`http://localhost:8080/api/board/task/status/${boardId}`, {
+        status,
+        taskId,
+      })
       .pipe(
-        take(1),
-        exhaustMap((user) => {
-          return this.http.put(
-            `http://localhost:8080/api/board/task/status/${boardId}`,
-            {
-              status,
-              taskId,
-            },
-            {
-              headers: new HttpHeaders({
-                Authorization: `Bearer ${user?.token}`,
-              }),
-            }
-          );
+        map((updatedBoard: any) => {
+          return {
+            userId: updatedBoard.userId,
+            id: updatedBoard._id,
+            name: updatedBoard.name,
+            description: updatedBoard.description,
+            createdDate: updatedBoard.createdDate,
+            tasks: updatedBoard.tasks,
+            todoCount: updatedBoard.todoCount,
+            progressCount: updatedBoard.progressCount,
+            doneCount: updatedBoard.doneCount,
+            archive: updatedBoard.archive,
+            colColors: updatedBoard.colColors,
+          };
         })
       )
-      .subscribe();
+      .subscribe((updatedBoard: Board) => {
+        let boardsTemp = this.getBoards().map((board) => {
+          if (board.id === boardId) {
+            return updatedBoard;
+          } else {
+            return board;
+          }
+        });
+        this.setBoards(boardsTemp);
+      });
   }
 
   addTaskComment(boardId: string, taskId: string, comment: string) {
-    return this.authService.user
-      .pipe(
-        take(1),
-        exhaustMap((user) => {
-          return this.http
-            .put(
-              `http://localhost:8080/api/board/task/comment/${boardId}`,
-              {
-                comment,
-                taskId,
-              },
-              {
-                headers: new HttpHeaders({
-                  Authorization: `Bearer ${user?.token}`,
-                }),
-              }
-            )
-        })
-      )
+    this.http
+      .put(`http://localhost:8080/api/board/task/comment/${boardId}`, {
+        comment,
+        taskId,
+      })
       .subscribe();
   }
 
   deleteTaskComment(boardId: string, taskId: string, commentIndex: number) {
-    if (confirm('Do you really want to delete this Comment?')) {
-      this.authService.user
-        .pipe(
-          take(1),
-          exhaustMap((user) => {
-            return this.http
-              .delete(`http://localhost:8080/api/board/task/comment/${boardId}`, {
-                headers: new HttpHeaders({
-                  Authorization: `Bearer ${user?.token}`,
-                }),
-                body: { commentIndex, taskId },
-              })
-          })
-        )
+    if (confirm('Do you want to delete this Comment?')) {
+      this.http
+        .delete(`http://localhost:8080/api/board/task/comment/${boardId}`, {
+          body: { commentIndex, taskId },
+        })
         .subscribe();
     }
   }
 
   archiveTask(boardId: string, taskId: string) {
-    if (confirm('Do you really want to remove this task to archive?')) {
-      this.authService.user
+    if (confirm('Do you want to remove this Task to archive?')) {
+      this.http
+        .delete(`http://localhost:8080/api/board/task/archive/${boardId}`, {
+          body: { taskId },
+        })
         .pipe(
-          take(1),
-          exhaustMap((user) => {
-            return this.http
-              .delete(`http://localhost:8080/api/board/task/archive/${boardId}`, {
-                headers: new HttpHeaders({
-                  Authorization: `Bearer ${user?.token}`,
-                }),
-                body: { taskId },
-              })
-              .pipe(
-                map((updatedBoard: any) => {
-                  return {
-                    userId: updatedBoard.userId,
-                    id: updatedBoard._id,
-                    name: updatedBoard.name,
-                    description: updatedBoard.description,
-                    createdDate: updatedBoard.createdDate,
-                    tasks: updatedBoard.tasks,
-                    todoCount: updatedBoard.todoCount,
-                    progressCount: updatedBoard.progressCount,
-                    doneCount: updatedBoard.doneCount,
-                    archive: updatedBoard.archive,
-                    colColors: updatedBoard.colColors,
-                  };
-                })
-              );
+          map((updatedBoard: any) => {
+            return {
+              userId: updatedBoard.userId,
+              id: updatedBoard._id,
+              name: updatedBoard.name,
+              description: updatedBoard.description,
+              createdDate: updatedBoard.createdDate,
+              tasks: updatedBoard.tasks,
+              todoCount: updatedBoard.todoCount,
+              progressCount: updatedBoard.progressCount,
+              doneCount: updatedBoard.doneCount,
+              archive: updatedBoard.archive,
+              colColors: updatedBoard.colColors,
+            };
           })
         )
         .subscribe((updatedBoard: Board) => {
@@ -466,24 +347,13 @@ export class UserDataService {
           this.setBoards(boardsTemp);
         });
     }
-  }  
+  }
 
   clearArchive() {
     if (confirm('Do you want to Clear Archive?')) {
-      this.authService.user
-        .pipe(
-          take(1),
-          exhaustMap((user) => {
-            return this.http
-              .put('http://localhost:8080/api/board/archive/clear', {
-                userId: user?.userId
-              }, {
-                headers: new HttpHeaders({
-                  Authorization: `Bearer ${user?.token}`,
-                }),
-              })
-          })
-        ).subscribe(() => {
+      this.http
+        .put('http://localhost:8080/api/board/archive/clear', {})
+        .subscribe(() => {
           const boardsTemp = this.getBoards().map((board) => {
             return { ...board, archive: [] };
           });
