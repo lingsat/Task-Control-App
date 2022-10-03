@@ -467,4 +467,28 @@ export class UserDataService {
         });
     }
   }  
+
+  clearArchive() {
+    if (confirm('Do you want to Clear Archive?')) {
+      this.authService.user
+        .pipe(
+          take(1),
+          exhaustMap((user) => {
+            return this.http
+              .put('http://localhost:8080/api/board/archive/clear', {
+                userId: user?.userId
+              }, {
+                headers: new HttpHeaders({
+                  Authorization: `Bearer ${user?.token}`,
+                }),
+              })
+          })
+        ).subscribe(() => {
+          const boardsTemp = this.getBoards().map((board) => {
+            return { ...board, archive: [] };
+          });
+          this.setBoards(boardsTemp);
+        });
+    }
+  }
 }
