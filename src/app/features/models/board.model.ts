@@ -1,6 +1,6 @@
 export interface Board {
   userId: string | undefined;
-  id: string;
+  _id: string;
   name: string;
   readonly description: string;
   createdDate: Date;
@@ -14,6 +14,7 @@ export interface Board {
     progress: string;
     done: string;
   };
+  __v?: number;
 }
 
 export interface Task {
@@ -24,23 +25,4 @@ export interface Task {
   createdDate: Date;
   comments: string[];
   commentsCounter: number;
-}
-
-export interface BoardResponse {
-  createdDate: string;
-  description: string;
-  name: string;
-  tasks: Task[]; // change
-  todoCount: number;
-  progressCount: number;
-  doneCount: number;
-  archive: Task[];
-  colColors: {
-    todo: string;
-    progress: string;
-    done: string;
-  };
-  userId: string;
-  __v?: number;
-  _id: string;
 }

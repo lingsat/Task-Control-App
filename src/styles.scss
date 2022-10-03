@@ -14,3 +14,10 @@ body {
   padding: 0 20px;
   margin: 0 auto;
 }
+
+// Media
+@media(max-width: 575.98px) {
+  .container {
+    padding: 0 15px;
+  }
+}

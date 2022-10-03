@@ -1,10 +1,12 @@
 .header {
+  position: fixed;
+  z-index: 50;
+  width: 100%;
   background-color: #217074;
   color: #fff;  
 
   &__inner {
     height: 80px;
-    padding: 17px 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -60,37 +62,124 @@
       border: 2px solid #e7eaef;
     }
   }
+
+  &__burger {
+    display: none;
+    width: 34px;
+    height: 34px;
+    // display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #217074;
+    border-radius: 5px;
+    background-color: #e7eaef;
+    transition: all 0.1s linear;
+    cursor: pointer;
+    
+    div {
+      position: relative;
+      width: 24px;
+      height: 3px;
+      background-color: #217074;
+
+      &::before, &::after {
+        content: "";
+        width: 24px;
+        height: 3px;
+        background-color: #217074;
+        position: absolute;
+        left: 50%;
+        z-index: 1;
+        transform: translateX(-50%);
+      }
+
+      &::before {
+        top: -7px;
+      }
+
+      &::after {
+        top: 7px;
+      }
+    }
+
+    &:hover {
+      background-color: #217074;
+      border-color: #e7eaef;
+      div, div::before, div::after {
+        background-color: #e7eaef;
+      }
+    }
+  }
 }
 
 .active {
   background-color: rgba(231, 234, 239, 0.2);
 }
 
-@media (max-width: 575.98px) {
+@media (max-width: 767.98px) {
   .header {
     &__inner {
-      height: 66px;
-      padding: 10px 0;
-      align-items: center;
+      height: 60px;
     }
 
     &__logo {
       font-size: 1.5rem;
     }
 
+    &__buttons {
+      margin: 0;
+    }
+
+    &__username {
+      display: none;
+    }
+
+    &__btn {
+      font-size: 1rem;
+    }
+
+    &__link {
+      font-size: 1.2rem;
+    }
+  }
+}
+
+@media (max-width: 575.98px) {
+  .header {
+    &__inner {
+      height: 66px;
+      align-items: center;
+    }
+
     &__btn {
       padding: 5px 10px;
-      font-size: 1rem;
+    }
+
+    &__burger {
+      display: flex;
+    }
+
+    &__buttons {
+      display: none;
+      padding: 10px;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      width: 100%;
+      top: 65px;
+      left: 0;
+      z-index: 1;
+      background-color: #217074;
+    }
+
+    &__buttons.show {
+      display: flex;
     }
   }
 }
 
 @media (max-width: 429.98px) {
-  .header__link {
-    margin-left: 15px;
-    font-size: 1rem;
-  }
   .header__logo {
-    font-size: 1rem;
+    font-size: 1.2rem;
   }
 }

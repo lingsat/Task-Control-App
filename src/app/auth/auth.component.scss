@@ -6,7 +6,8 @@
   align-items: center;
 
   &__form {
-    width: 300px;
+    width: 100%;
+    max-width: 300px;
     text-align: center;
   }
 
@@ -19,13 +20,13 @@
   }
 }
 
-@keyframes showForm {
-  0% {
-    top: -15px;
-    opacity: 0;
-  }
-  100% {
-    top: 0;
-    opacity: 1;
+@media(max-width: 767.98px) {
+  .auth {
+    height: 100%;
+    flex-direction: column;
+
+    &__image {
+      display: none;
+    }
   }
 }

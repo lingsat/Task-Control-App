@@ -14,6 +14,7 @@ export class AddTaskFormComponent implements OnInit {
   editMode: boolean = false;  
   editedTaskId!: string;
   editDefaultName: string = '';
+  defaultStatus: string = 'todo'
 
   constructor(
     private formsService: FormsService,
@@ -26,6 +27,7 @@ export class AddTaskFormComponent implements OnInit {
       this.currentBoardId = data['id'];
     });
 
+    this.defaultStatus = this.formsService.defaultTaskStatus;
     this.editMode = this.formsService.editTaskMode;
     this.editedTaskId = this.formsService.editedTaskId;
     this.editDefaultName = this.formsService.editDefaultTaskName;

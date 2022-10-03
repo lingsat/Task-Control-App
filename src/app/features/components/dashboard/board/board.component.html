@@ -3,7 +3,8 @@
 </ng-container>
 <div class="content">
   <h2 class="content__title">{{ boardName }}</h2>
-  <div class="content__controls">
+  <button class="content__burger" (click)="onToggleFilterFormShow()">Filter/Sort</button>
+  <div class="content__controls" [ngClass]="showSmallForm ? 'show' : ''">
     <form class="controls__form" #boardControlForm="ngForm">
       <fieldset class="controls__fieldset">
         <label for="filter">Filter</label>
@@ -32,7 +33,7 @@
   <div class="board__column">
     <h3 class="board__subtitle">ToDo</h3>
     <div class="board__card" [ngStyle]="{backgroundColor: colColors.todo}">
-      <button type="button" class="board__add" (click)="onOpenAddTaskForm()">
+      <button type="button" class="board__add" (click)="onOpenAddTaskForm('todo')">
         +
       </button>
       <div
@@ -63,7 +64,7 @@
   <div class="board__column">
     <h3 class="board__subtitle">In Progress</h3>
     <div class="board__card" [ngStyle]="{backgroundColor: colColors.progress}">
-      <button type="button" class="board__add" (click)="onOpenAddTaskForm()">
+      <button type="button" class="board__add" (click)="onOpenAddTaskForm('progress')">
         +
       </button>
       <div
@@ -94,7 +95,7 @@
   <div class="board__column">
     <h3 class="board__subtitle">Done</h3>
     <div class="board__card" [ngStyle]="{backgroundColor: colColors.done}">
-      <button type="button" class="board__add" (click)="onOpenAddTaskForm()">
+      <button type="button" class="board__add" (click)="onOpenAddTaskForm('done')">
         +
       </button>
       <div

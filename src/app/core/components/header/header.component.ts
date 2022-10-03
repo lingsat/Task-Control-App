@@ -12,6 +12,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private userSub!: Subscription;
   isAuth: boolean = false;
   userName: string | undefined;
+  showNavigation: boolean = false;
 
   constructor(private authService: AuthService, private userDataService: UserDataService) { }
 
@@ -28,6 +29,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
       // clear boards array on logout
       this.userDataService.clearBoardsRequestState();   
     }
+  }
+
+  onToggleNavigation() {
+    this.showNavigation = !this.showNavigation;
   }
 
   ngOnDestroy(): void {

@@ -4,7 +4,7 @@
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 5;
+  z-index: 55;
   background-color: rgba($color: #000, $alpha: 0.5);
   backdrop-filter: blur(2px);
   display: flex;
@@ -13,6 +13,8 @@
 }
 
 .wrapper {
+  width: 90%;
+  max-width: 300px;
   background-color: #E7EAEF;
   padding: 20px;
   border: 2px solid #217074;
@@ -21,7 +23,7 @@
 }
 
 .form {
-  width: 300px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   

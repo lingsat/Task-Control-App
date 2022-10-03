@@ -16,6 +16,7 @@ export class FormsService {
   editedTaskId!: string;
   editTaskMode: boolean = false;
   editDefaultTaskName: string = '';
+  defaultTaskStatus: string = '';
 
   constructor() {}
 
@@ -26,13 +27,14 @@ export class FormsService {
   openAddBoardForm() {
     this.showAddBoardForm = true;
   }
-
+  
   closeAddTaskForm() {
     this.showAddTaskForm = false;
   }
-
-  openAddTaskForm() {
+  
+  openAddTaskForm(status: string) {
     this.showAddTaskForm = true;
+    this.defaultTaskStatus = status;
   }
 
   setEditedBoardId(id: string, name: string, description: string) {
@@ -42,11 +44,11 @@ export class FormsService {
     this.openAddBoardForm();
   }
 
-  setEditedTaskId(taskId: string, name: string) {
+  setEditedTaskId(taskId: string, name: string, status: string) {
     this.editedTaskId = taskId;
     this.editTaskMode = true;
     this.editDefaultTaskName = name;
-    this.openAddTaskForm();
+    this.openAddTaskForm(status);
   }
 
   clearBoardMode() {

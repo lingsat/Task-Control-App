@@ -1,11 +1,4 @@
-import {
-  AfterContentInit,
-  Component,
-  OnChanges,
-  OnDestroy,
-  OnInit,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormsService } from 'src/app/features/services/forms.service';
 import { Task } from 'src/app/features/models/board.model';
 import { UserDataService } from 'src/app/features/services/user-data.service';
@@ -41,6 +34,8 @@ export class BoardComponent implements OnInit, OnDestroy {
   showProgressColors: boolean = false;
   showDoneColors: boolean = false;
 
+  showSmallForm: boolean = false;
+
   constructor(
     public formsService: FormsService,
     private userDataService: UserDataService,
@@ -58,7 +53,7 @@ export class BoardComponent implements OnInit, OnDestroy {
       .subscribe((boards) => {
         this.cleartasks();
         let curentBoard = boards.find(
-          (board) => board.id === this.curentBoardId
+          (board) => board._id === this.curentBoardId
         );
         if (curentBoard) {
           this.boardName = curentBoard.name;
@@ -87,8 +82,8 @@ export class BoardComponent implements OnInit, OnDestroy {
     this.doneTasks = [];
   }
 
-  onOpenAddTaskForm() {
-    this.formsService.openAddTaskForm();
+  onOpenAddTaskForm(status: string) {
+    this.formsService.openAddTaskForm(status);
   }
 
   // Drag and Drop
@@ -116,7 +111,11 @@ export class BoardComponent implements OnInit, OnDestroy {
           this.doneTasks.push(modedTask);
           break;
       }
-      this.userDataService.changeTaskStatus(this.curentBoardId, this.currentDraggableTask.id, status);
+      this.userDataService.changeTaskStatus(
+        this.curentBoardId,
+        this.currentDraggableTask.id,
+        status
+      );
     }
   }
 
@@ -146,7 +145,15 @@ export class BoardComponent implements OnInit, OnDestroy {
         this.showDoneColors = false;
         break;
     }
-    this.userDataService.setBoardColor(this.curentBoardId, columnStatus, newColor);
+    this.userDataService.setBoardColor(
+      this.curentBoardId,
+      columnStatus,
+      newColor
+    );
+  }
+
+  onToggleFilterFormShow() {
+    this.showSmallForm = !this.showSmallForm;
   }
 
   ngOnDestroy(): void {

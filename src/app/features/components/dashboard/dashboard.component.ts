@@ -17,6 +17,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   sortOrder: SortOrder = 'asc';
   boardsSub!: Subscription;
 
+  showSmallForm: boolean = false;
+
   constructor(public formsService: FormsService, public userDataService: UserDataService) { }
 
   ngOnInit(): void {
@@ -35,7 +37,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   onEditBoard(board: Board) {
-    this.formsService.setEditedBoardId(board.id, board.name, board.description);
+    this.formsService.setEditedBoardId(board._id, board.name, board.description);
+  }
+
+  onToggleFilterFormShow() {
+    this.showSmallForm = !this.showSmallForm;
   }
 
   ngOnDestroy(): void {

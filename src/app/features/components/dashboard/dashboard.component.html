@@ -3,7 +3,8 @@
 </ng-container>
 <div class="content">
   <h2 class="content__title">Dashboard</h2>
-  <div class="content__controls">
+  <button class="content__burger" (click)="onToggleFilterFormShow()">Filter/Sort</button>
+  <div class="content__controls" [ngClass]="showSmallForm ? 'show' : ''">
     <form class="controls__form" #controlsForm="ngForm">
       <fieldset class="controls__fieldset">
         <label for="filter">Filter</label>
@@ -51,7 +52,7 @@
   <div
     class="dashboard__item"
     *ngFor="let board of boards | filtering: searchText | sorting: sortValue: sortOrder"
-    [routerLink]="board.id"
+    [routerLink]="board._id"
     appBoardHighlight
   >
     <h4 class="item__name">{{ board.name }}</h4>
@@ -60,7 +61,7 @@
     </p>
     <div class="item__footer">
       <span class="item__date">{{
-        board.createdDate | date: "dd/MM/YYYY, h:mm a"
+        board.createdDate | date: "dd/MM/YYYY"
       }}</span>
       <div class="item__controls">
         <button type="button">
@@ -74,7 +75,7 @@
           <img
             src="../../../../assets/images/delete.svg"
             alt="Delete"
-            (click)="onDeleteBoard(board.id); $event.stopPropagation()"
+            (click)="onDeleteBoard(board._id); $event.stopPropagation()"
           />
         </button>
       </div>

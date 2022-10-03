@@ -2,7 +2,7 @@
   <p class="task__text">{{ task.name }}</p>
   <div class="task__controls" [ngClass]="showControls ? 'show' : ''">
     <span class="task__date">{{
-      task.createdDate | date: "dd/MM/YYYY, h:mm a"
+      task.createdDate | date: "dd/MM/YYYY"
     }}</span>
     <button type="button" class="btn">
       <img
