@@ -2,10 +2,10 @@
   position: relative;
   padding: 15px 25px 5px 15px;
   margin-bottom: 10px;
-  background-color: #D2D2D4;
+  background-color: #d2d2d4;
   text-align: left;
   transition: all 0.1s linear;
-  
+
   .task__text {
     font-size: 1rem;
     line-height: 1.2;
@@ -47,7 +47,7 @@
   &:hover {
     .task__dot,
     .task__dot::after,
-    .task__dot::before  {
+    .task__dot::before {
       background-color: #217074;
     }
   }
@@ -64,7 +64,8 @@
   z-index: 1;
   transform: translateX(-50%);
 
-  &::before, &::after {
+  &::before,
+  &::after {
     content: "";
     width: 8px;
     height: 8px;
@@ -72,13 +73,13 @@
     border-radius: 50%;
     position: absolute;
   }
-  
+
   &::before {
-    top: -11px;    
+    top: -11px;
   }
 
   &::after {
-    top: 11px;    
+    top: 11px;
   }
 }
 
@@ -102,8 +103,9 @@
   }
 
   &:hover {
-    span, img {
-      opacity: 0.7;;
+    span,
+    img {
+      opacity: 0.7;
     }
   }
 }
@@ -120,7 +122,7 @@
     margin-bottom: 5px;
     padding: 10px;
     border-radius: 10px;
-    background-color: #E7EAEF;
+    background-color: #e7eaef;
     position: relative;
   }
 
@@ -145,14 +147,14 @@
     border: none;
     cursor: pointer;
     transition: all 0.1s linear;
-  
+
     img {
       width: 20px;
-      height:20px;
+      height: 20px;
     }
-  
+
     &:hover {
-      background-color: #E7EAEF;
+      background-color: #e7eaef;
     }
   }
 
@@ -185,10 +187,10 @@
       transition: all 0.1s linear;
 
       &:hover {
-        color: #E7EAEF;
+        color: #e7eaef;
         background-color: #217074;
       }
-    }    
+    }
   }
 }
 
@@ -206,11 +208,11 @@
 
   img {
     width: 20px;
-    height:20px;
+    height: 20px;
   }
 
   &:hover {
-    background-color: #E7EAEF;
+    background-color: #e7eaef;
   }
 }
 
@@ -218,7 +220,7 @@
   display: block;
 }
 
-@media(max-width: 991.98px) {
+@media (max-width: 991.98px) {
   .comments__form textarea {
     font-size: 0.9rem;
   }

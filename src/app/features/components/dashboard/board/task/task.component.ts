@@ -1,4 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Task } from 'src/app/features/models/board.model';
 import { FormsService } from 'src/app/features/services/forms.service';
@@ -8,10 +13,11 @@ import { UserDataService } from 'src/app/features/services/user-data.service';
   selector: 'app-task',
   templateUrl: './task.component.html',
   styleUrls: ['./task.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TaskComponent implements OnInit {
   @Input() task!: Task;
-  
+
   showControls: boolean = false;
   showComments: boolean = false;
 
@@ -31,7 +37,11 @@ export class TaskComponent implements OnInit {
   }
 
   onEditTask() {
-    this.formsService.setEditedTaskId(this.task.id, this.task.name, this.task.status);
+    this.formsService.setEditedTaskId(
+      this.task.id,
+      this.task.name,
+      this.task.status
+    );
   }
 
   onArchiveTask() {
@@ -45,14 +55,21 @@ export class TaskComponent implements OnInit {
   onDeleteComment(commentIndex: number) {
     this.task.comments.splice(commentIndex, 1);
     this.task.commentsCounter = this.task.comments.length;
-    this.userDataService.deleteTaskComment(this.task.boardId, this.task.id, commentIndex);
+    this.userDataService.deleteTaskComment(
+      this.task.boardId,
+      this.task.id,
+      commentIndex
+    );
   }
 
   onSubmit(form: NgForm) {
     this.task.comments.push(form.value.comment);
     this.task.commentsCounter = this.task.comments.length;
-    this.userDataService.addTaskComment(this.task.boardId, this.task.id, form.value.comment);
+    this.userDataService.addTaskComment(
+      this.task.boardId,
+      this.task.id,
+      form.value.comment
+    );
     form.reset();
   }
-
 }

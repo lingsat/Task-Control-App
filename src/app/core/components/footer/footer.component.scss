@@ -6,7 +6,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    align-items: center;    
+    align-items: center;
   }
 
   &__text {
@@ -26,16 +26,15 @@
       font-size: 0.8rem;
       text-align: center;
     }
-  
+
     &__logo {
       width: 20px;
     }
   }
-
 }
 
 @media (max-width: 429.98px) {
-  .footer {  
+  .footer {
     &__text {
       font-size: 1rem;
     }

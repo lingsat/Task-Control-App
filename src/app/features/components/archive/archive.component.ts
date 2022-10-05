@@ -14,18 +14,20 @@ export class ArchiveComponent implements OnInit, OnDestroy {
   showDelBtn: boolean = true;
   boardsSub!: Subscription;
 
-  constructor(private userDataService: UserDataService) { }
+  constructor(private userDataService: UserDataService) {}
 
   ngOnInit(): void {
     this.userDataService.fetchBoards();
-    this.boardsSub = this.userDataService.getBoardsObs().subscribe((boards: Board[]) => {
-      this.boards = boards;
-      if (boards.every(board => board.archive.length === 0)) {
-        this.showDelBtn = false;
-      } else {
-        this.showDelBtn = true;
-      }
-    });
+    this.boardsSub = this.userDataService
+      .getBoardsObs()
+      .subscribe((boards: Board[]) => {
+        this.boards = boards;
+        if (boards.every((board) => board.archive.length === 0)) {
+          this.showDelBtn = false;
+        } else {
+          this.showDelBtn = true;
+        }
+      });
   }
 
   onClearArchive() {
@@ -34,5 +36,5 @@ export class ArchiveComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.boardsSub.unsubscribe();
-  } 
+  }
 }

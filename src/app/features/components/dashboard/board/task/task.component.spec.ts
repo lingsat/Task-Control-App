@@ -10,10 +10,9 @@ describe('TaskComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TaskComponent ],
-      imports: [HttpClientTestingModule, FormsModule]
-    })
-    .compileComponents();
+      declarations: [TaskComponent],
+      imports: [HttpClientTestingModule, FormsModule],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(TaskComponent);
     component = fixture.componentInstance;
