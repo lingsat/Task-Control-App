@@ -147,7 +147,6 @@
 @media (max-width: 575.98px) {
   .header {
     &__inner {
-      height: 66px;
       align-items: center;
     }
 
@@ -166,7 +165,7 @@
       align-items: center;
       position: absolute;
       width: 100%;
-      top: 65px;
+      top: 59px;
       left: 0;
       z-index: 1;
       background-color: #217074;

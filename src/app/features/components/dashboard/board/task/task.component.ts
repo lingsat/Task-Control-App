@@ -11,6 +11,7 @@ import { UserDataService } from 'src/app/features/services/user-data.service';
 })
 export class TaskComponent implements OnInit {
   @Input() task!: Task;
+  
   showControls: boolean = false;
   showComments: boolean = false;
 

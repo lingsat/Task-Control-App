@@ -1,6 +1,6 @@
 .auth {
-  height: 100%;
-  padding: 50px 0;
+  height: calc(100vh - 125px);
+  padding: 20px 0;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -12,7 +12,7 @@
   }
 
   &__image {
-    width: 50%;
+    width: 60%;
 
     img {
       width: 100%;
@@ -20,13 +20,26 @@
   }
 }
 
-@media(max-width: 767.98px) {
+@media (max-width: 991.98px) {
   .auth {
-    height: 100%;
-    flex-direction: column;
+    &__image {
+      width: 50%;
+    }
+  }
+}
+
+@media (max-width: 767.98px) {
+  .auth {
+    height: calc(100vh - 105px);
 
     &__image {
       display: none;
     }
+  }
+}
+
+@media (max-width: 429.98px) {
+  .auth {
+    height: calc(100vh - 124px);
   }
 }

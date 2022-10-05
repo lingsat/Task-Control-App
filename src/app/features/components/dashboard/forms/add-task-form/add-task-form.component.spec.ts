@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { AddTaskFormComponent } from './add-task-form.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { FormsModule } from '@angular/forms';
 
 describe('AddTaskFormComponent', () => {
   let component: AddTaskFormComponent;
@@ -8,7 +11,8 @@ describe('AddTaskFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AddTaskFormComponent ]
+      declarations: [ AddTaskFormComponent ],
+      imports: [HttpClientTestingModule, RouterTestingModule, FormsModule]
     })
     .compileComponents();
 

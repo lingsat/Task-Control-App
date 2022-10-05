@@ -40,6 +40,10 @@
     option {
       background-color: #E7EAEF;
     }
+
+    &:disabled {
+      background-color: #D2D2D4;
+    }
   }
 
   &__textarea {

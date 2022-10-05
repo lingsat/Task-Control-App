@@ -1,4 +1,6 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 
 import { TaskComponent } from './task.component';
 
@@ -8,12 +10,22 @@ describe('TaskComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TaskComponent ]
+      declarations: [ TaskComponent ],
+      imports: [HttpClientTestingModule, FormsModule]
     })
     .compileComponents();
 
     fixture = TestBed.createComponent(TaskComponent);
     component = fixture.componentInstance;
+    component.task = {
+      id: '123',
+      boardId: '456',
+      name: 'TestName',
+      status: 'todo',
+      createdDate: new Date(),
+      comments: ['Comment example'],
+      commentsCounter: 1,
+    };
     fixture.detectChanges();
   });
 

@@ -10,14 +10,8 @@
   }
 }
 
-@media (max-width: 575.98px) {
-  .main {
-    padding-top: 66px;
-  }
-}
-
 @media (max-width: 429.98px) {
-  .main {
+  .main {    
     min-height: calc(100vh - 64px);
   }
 }
