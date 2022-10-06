@@ -42,7 +42,7 @@ export class AddTaskFormComponent implements OnInit {
     if (!this.editMode) {
       this.userDataService.addTask(this.currentBoardId, form.value.task, form.value.taskState);
     } else {
-      this.userDataService.editTask(this.currentBoardId, this.editedTaskId, form.value.task);
+      this.userDataService.editTask(this.currentBoardId, this.editedTaskId, form.value.task, form.value.taskState);
     }
     form.reset();
     this.formsService.clearTaskMode();

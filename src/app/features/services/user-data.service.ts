@@ -136,10 +136,11 @@ export class UserDataService {
     }
   }
 
-  editTask(boardId: string, taskId: string, name: string) {
+  editTask(boardId: string, taskId: string, name: string, status: string) {
     this.http
       .put<Board>(`http://localhost:8080/api/board/task/edit/${boardId}`, {
         name,
+        status,
         taskId,
       })
       .subscribe((updatedBoard: Board) => {

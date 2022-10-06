@@ -30,7 +30,7 @@ export class ArchiveComponent implements OnInit, OnDestroy {
       });
   }
 
-  onClearArchive() {
+  onClearArchive(): void {
     this.userDataService.clearArchive();
   }
 
