@@ -9,10 +9,9 @@ describe('ArchiveComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ArchiveComponent ],
-      imports: [HttpClientTestingModule]
-    })
-    .compileComponents();
+      declarations: [ArchiveComponent],
+      imports: [HttpClientTestingModule],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ArchiveComponent);
     component = fixture.componentInstance;
@@ -22,12 +21,12 @@ describe('ArchiveComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-  
+
   it('should hide delete button', () => {
     expect(component.showDelBtn).toBeFalse();
-  }); 
+  });
 
   it('should create onClearArchive', () => {
     expect(component.onClearArchive).toBeTruthy();
-  });   
+  });
 });

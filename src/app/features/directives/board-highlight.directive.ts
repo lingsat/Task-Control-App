@@ -1,12 +1,10 @@
-import { Directive, ElementRef, HostListener, OnInit } from '@angular/core';
+import { Directive, ElementRef, HostListener } from '@angular/core';
 
 @Directive({
   selector: '[appBoardHighlight]'
 })
-export class BoardHighlightDirective implements OnInit {
+export class BoardHighlightDirective {
   constructor(private elementRef: ElementRef) {}
-  
-  ngOnInit(): void {}
 
   @HostListener('mouseenter') mouseover(eventData: Event) {
     this.elementRef.nativeElement.style.backgroundColor = '#D2D2D4';      

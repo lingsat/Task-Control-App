@@ -31,4 +31,14 @@ describe('TaskComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('show task controls', () => {
+    component.onToggleControls()
+    expect(component.showControls).toBeTrue();
+  });
+
+  it('show task comments', () => {
+    component.onToggleComments()
+    expect(component.showComments).toBeTrue();
+  });
 });

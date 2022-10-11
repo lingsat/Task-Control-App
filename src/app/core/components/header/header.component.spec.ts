@@ -22,4 +22,9 @@ describe('HeaderComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('show navigation on toggleNavigation function call', () => {
+    component.onToggleNavigation();
+    expect(component.showNavigation).toBeTrue();
+  });
 });
