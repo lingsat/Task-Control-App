@@ -2,19 +2,49 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
+import { of } from 'rxjs';
 import { Task } from 'src/app/features/models/board.model';
 import { FilteringPipe } from 'src/app/features/pipes/filtering.pipe';
 import { SortingPipe } from 'src/app/features/pipes/sorting.pipe';
+import { FormsService } from 'src/app/features/services/forms.service';
+import { UserDataService } from 'src/app/features/services/user-data.service';
 
 import { BoardComponent } from './board.component';
 
 describe('BoardComponent', () => {
   let component: BoardComponent;
   let fixture: ComponentFixture<BoardComponent>;
+  let fakeFormsService: Pick<FormsService, 'openAddTaskForm'>;
+  let fakeUserDataService: Pick<UserDataService, 'setBoardColor' | 'changeTaskStatus' | 'fetchBoards' | 'getBoardsObs'>;
+  let testTask: Task;
 
   beforeEach(async () => {
+    testTask = {
+      id: '123',
+      boardId: '12345',
+      name: 'Draggable task',
+      status: 'todo',
+      createdDate: new Date(),
+      comments: [],
+      commentsCounter: 0,
+    };
+
+    fakeFormsService = {
+      openAddTaskForm: jasmine.createSpy('openAddTaskForm'),
+    };
+    fakeUserDataService = {
+      setBoardColor: jasmine.createSpy('setBoardColor'),
+      changeTaskStatus: jasmine.createSpy('changeTaskStatus'),
+      fetchBoards() {},
+      getBoardsObs: jasmine.createSpy('getBoardsObs').and.returnValue(of([])),
+    };
+
     await TestBed.configureTestingModule({
       declarations: [BoardComponent, FilteringPipe, SortingPipe],
+      providers: [
+        { provide: FormsService, useValue: fakeFormsService },
+        { provide: UserDataService, useValue: fakeUserDataService }
+      ],
       imports: [HttpClientTestingModule, RouterTestingModule, FormsModule],
     }).compileComponents();
 
@@ -50,16 +80,51 @@ describe('BoardComponent', () => {
   });
 
   it('set current draggable task', () => {
-    const testTask: Task = {
-      id: '123',
-      boardId: '12345',
-      name: 'Draggable task',
-      status: 'progress',
-      createdDate: new Date(),
-      comments: [],
-      commentsCounter: 0,
-    };
     component.onDragStart(testTask);
     expect(component.currentDraggableTask).toEqual(testTask);
+  });
+
+  it('open Add Task Form with defined status', () => {
+    component.onOpenAddTaskForm('progress');
+    expect(fakeFormsService.openAddTaskForm).toHaveBeenCalled();
+    expect(fakeFormsService.openAddTaskForm).toHaveBeenCalledWith('progress');
+    expect(fakeFormsService.openAddTaskForm).not.toHaveBeenCalledWith('done');
+  });
+
+  it('set background color for todo column', () => {
+    component.onSetColor('todo', '#81BECE');
+    expect(component.showTodoColors).toBeFalse();
+    expect(fakeUserDataService.setBoardColor).toHaveBeenCalled();
+  });
+
+  it('set background color for progress column', () => {
+    component.onSetColor('progress', '#81BECE');
+    expect(component.showProgressColors).toBeFalse();
+    expect(fakeUserDataService.setBoardColor).toHaveBeenCalled();
+  });
+
+  it('set background color for done column', () => {
+    component.onSetColor('done', '#81BECE');
+    expect(component.showDoneColors).toBeFalse();
+    expect(fakeUserDataService.setBoardColor).toHaveBeenCalled();
+  });
+
+  it('change task status on Drop task - from todo to progress', () => {
+    component.onDragStart(testTask);
+    component.onDrop('progress');
+    expect(fakeUserDataService.changeTaskStatus).toHaveBeenCalled();
+  });
+
+  it('change task status on Drop task - from todo to done', () => {
+    component.onDragStart(testTask);
+    component.onDrop('done');
+    expect(fakeUserDataService.changeTaskStatus).toHaveBeenCalled();
+  });
+
+  it('change task status on Drop task - from done to todo', () => {
+    testTask.status = 'done';
+    component.onDragStart(testTask);
+    component.onDrop('todo');
+    expect(fakeUserDataService.changeTaskStatus).toHaveBeenCalled();
   });
 });

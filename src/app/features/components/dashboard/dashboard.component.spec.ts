@@ -33,7 +33,6 @@ let testBoard: Board = {
 describe('DashboardComponent', () => {
   let component: DashboardComponent;
   let fixture: ComponentFixture<DashboardComponent>;
-  let debugElement: DebugElement;
   let fakeFormService: Pick<
     FormsService,
     'openAddBoardForm' | 'setEditedBoardId'
@@ -61,7 +60,6 @@ describe('DashboardComponent', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(DashboardComponent);
-    debugElement = fixture.debugElement;
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
