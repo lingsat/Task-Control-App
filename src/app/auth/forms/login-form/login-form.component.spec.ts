@@ -2,7 +2,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 
 import { LoginFormComponent } from './login-form.component';
@@ -57,6 +57,15 @@ describe('LoginFormComponent', () => {
   });
 
   it('submit login form', () => {
+    component.onSubmit();
+    expect(fakeAuthService.login).toHaveBeenCalled();
+  });
+
+  it('error on submit login form', () => {
+    spyOn(window, 'alert').and.callFake(() => true);
+    fakeAuthService.login = jasmine
+      .createSpy('login')
+      .and.returnValue(throwError(() => new Error('Some error')));
     component.onSubmit();
     expect(fakeAuthService.login).toHaveBeenCalled();
   });

@@ -38,7 +38,7 @@ export class LoginFormComponent implements OnInit {
       },
       error: (error) => {
         this.isLoading = false;
-        alert(error.error.message);
+        alert(error.error);
       },
     });   
     this.loginForm.reset();  

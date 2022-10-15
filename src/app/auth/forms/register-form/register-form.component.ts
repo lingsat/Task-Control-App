@@ -41,7 +41,7 @@ export class RegisterFormComponent implements OnInit {
       },
       error: (error) => {
         this.isLoading = false;
-        alert(error.error.message);
+        alert(error.error);
       },
       });
 

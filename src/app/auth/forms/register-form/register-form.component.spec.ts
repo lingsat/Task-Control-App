@@ -2,7 +2,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { DashboardComponent } from 'src/app/features/components/dashboard/dashboard.component';
 import { AuthResponseData } from '../../models/response.model';
 import { AuthService } from '../../services/auth.service';
@@ -57,6 +57,15 @@ describe('RegisterFormComponent', () => {
   });
 
   it('submit register form', () => {
+    component.onSubmit();
+    expect(fakeAuthService.register).toHaveBeenCalled();
+  });
+
+  it('error on submit register form', () => {
+    spyOn(window, 'alert').and.callFake(() => true);
+    fakeAuthService.register = jasmine
+      .createSpy('regoster')
+      .and.returnValue(throwError(() => new Error('Some error')));
     component.onSubmit();
     expect(fakeAuthService.register).toHaveBeenCalled();
   });
