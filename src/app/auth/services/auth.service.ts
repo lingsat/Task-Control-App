@@ -5,6 +5,7 @@ import { AuthResponseData } from '../models/response.model';
 import { User } from '../models/user.model';
 import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
+import { environment as env } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +22,7 @@ export class AuthService {
     password: string
   ): Observable<AuthResponseData> {
     return this.http
-      .post<AuthResponseData>(`http://localhost:8080/api/auth/register`, {
+      .post<AuthResponseData>(`${env.SERVER_URL}/api/auth/register`, {
         login,
         email,
         password,
@@ -40,7 +41,7 @@ export class AuthService {
 
   login(email: string, password: string): Observable<AuthResponseData> {
     return this.http
-      .post<AuthResponseData>(`http://localhost:8080/api/auth/login`, {
+      .post<AuthResponseData>(`${env.SERVER_URL}/api/auth/login`, {
         email,
         password,
       })

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Board } from '../models/board.model';
+import { environment as env } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -31,7 +32,7 @@ export class UserDataService {
 
   addBoard(name: string, description: string) {
     this.http
-      .post<Board>('http://localhost:8080/api/board', {
+      .post<Board>(`${env.SERVER_URL}/api/board`, {
         name,
         description,
       })
@@ -44,7 +45,7 @@ export class UserDataService {
   fetchBoards() {
     if (!this.boardsGeted) {
       this.http
-        .get<Board[]>('http://localhost:8080/api/board')
+        .get<Board[]>(`${env.SERVER_URL}/api/board`)
         .subscribe((boardsArr: Board[]) => {
           this.setBoards(boardsArr);
           this.boardsGeted = true;
@@ -55,7 +56,7 @@ export class UserDataService {
   deleteBoard(id: string) {
     if (confirm('Do you want to delete this Board?')) {
       this.http
-        .delete(`http://localhost:8080/api/board/${id}`)
+        .delete(`${env.SERVER_URL}/api/board/${id}`)
         .subscribe(() => {
           let boardTemp = this.getBoards();
           const delIndex = boardTemp.findIndex((board) => board._id === id);
@@ -67,7 +68,7 @@ export class UserDataService {
 
   editBoard(id: string, name: string) {
     this.http
-      .put(`http://localhost:8080/api/board/${id}`, { name })
+      .put(`${env.SERVER_URL}/api/board/${id}`, { name })
       .subscribe(() => {
         let boardTemp = this.getBoards().map((board) => {
           if (board._id === id) {
@@ -82,7 +83,7 @@ export class UserDataService {
 
   setBoardColor(boardId: string, columnStatus: string, newColor: string) {
     this.http
-      .put<Board>(`http://localhost:8080/api/board/setcolor/${boardId}`, {
+      .put<Board>(`${env.SERVER_URL}/api/board/setcolor/${boardId}`, {
         newColor,
         columnStatus,
       })
@@ -101,7 +102,7 @@ export class UserDataService {
   // Tasks
   addTask(id: string, name: string, status: string) {
     this.http
-      .put<Board>(`http://localhost:8080/api/board/task/${id}`, {
+      .put<Board>(`${env.SERVER_URL}/api/board/task/${id}`, {
         name,
         status,
       })
@@ -120,7 +121,7 @@ export class UserDataService {
   deleteTask(boardId: string, taskId: string) {
     if (confirm('Do you want to delete this Task?')) {
       this.http
-        .delete<Board>(`http://localhost:8080/api/board/task/${boardId}`, {
+        .delete<Board>(`${env.SERVER_URL}/api/board/task/${boardId}`, {
           body: { taskId },
         })
         .subscribe((updatedBoard: Board) => {
@@ -138,7 +139,7 @@ export class UserDataService {
 
   editTask(boardId: string, taskId: string, name: string, status: string) {
     this.http
-      .put<Board>(`http://localhost:8080/api/board/task/edit/${boardId}`, {
+      .put<Board>(`${env.SERVER_URL}/api/board/task/edit/${boardId}`, {
         name,
         status,
         taskId,
@@ -157,7 +158,7 @@ export class UserDataService {
 
   changeTaskStatus(boardId: string, taskId: string, status: string) {
     this.http
-      .put<Board>(`http://localhost:8080/api/board/task/status/${boardId}`, {
+      .put<Board>(`${env.SERVER_URL}/api/board/task/status/${boardId}`, {
         status,
         taskId,
       })
@@ -175,7 +176,7 @@ export class UserDataService {
 
   addTaskComment(boardId: string, taskId: string, comment: string) {
     this.http
-      .put(`http://localhost:8080/api/board/task/comment/${boardId}`, {
+      .put(`${env.SERVER_URL}/api/board/task/comment/${boardId}`, {
         comment,
         taskId,
       })
@@ -185,7 +186,7 @@ export class UserDataService {
   deleteTaskComment(boardId: string, taskId: string, commentIndex: number) {
     if (confirm('Do you want to delete this Comment?')) {
       this.http
-        .delete(`http://localhost:8080/api/board/task/comment/${boardId}`, {
+        .delete(`${env.SERVER_URL}/api/board/task/comment/${boardId}`, {
           body: { commentIndex, taskId },
         })
         .subscribe();
@@ -197,7 +198,7 @@ export class UserDataService {
     if (confirm('Do you want to remove this Task to archive?')) {
       this.http
         .delete<Board>(
-          `http://localhost:8080/api/board/task/archive/${boardId}`,
+          `${env.SERVER_URL}/api/board/task/archive/${boardId}`,
           {
             body: { taskId },
           }
@@ -218,7 +219,7 @@ export class UserDataService {
   clearArchive() {
     if (confirm('Do you want to Clear Archive?')) {
       this.http
-        .put('http://localhost:8080/api/board/archive/clear', {})
+        .put(`${env.SERVER_URL}/api/board/archive/clear`, {})
         .subscribe(() => {
           const boardsTemp = this.getBoards().map((board) => {
             return { ...board, archive: [] };
