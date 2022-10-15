@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
@@ -12,7 +12,7 @@ export class RegisterFormComponent implements OnInit {
   registerForm!: FormGroup;
   isLoading: boolean = false;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router, private ngZone: NgZone) {}
 
   ngOnInit(): void {
     this.registerForm = new FormGroup({
@@ -35,7 +35,9 @@ export class RegisterFormComponent implements OnInit {
       next: () => {      
         this.authService.setLoginMode(true);
         this.isLoading = false;
-        this.router.navigate(['/dashboard']);
+        this.ngZone.run(() => {
+          this.router.navigate(['/dashboard']);
+        })
       },
       error: (error) => {
         this.isLoading = false;

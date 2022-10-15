@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from './services/auth.service';
@@ -12,12 +12,14 @@ export class AuthComponent implements OnInit, OnDestroy {
   isLoginMode: boolean = true;
   authSub!: Subscription;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router, private ngZone: NgZone) {}
 
   ngOnInit(): void {
     // redirect authorized user to dashboard - lazy loading handle
     if (localStorage.getItem('userData')) {
-      this.router.navigate(['/dashboard']);
+      this.ngZone.run(() => {
+        this.router.navigate(['/dashboard']);
+      })
     }
 
     this.authSub = this.authService.isLoginMode.subscribe((loginMode) => {

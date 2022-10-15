@@ -1,6 +1,6 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { FormsService } from 'src/app/features/services/forms.service';
 import { UserDataService } from 'src/app/features/services/user-data.service';
 
@@ -30,6 +30,13 @@ describe('AddBoardFormComponent', () => {
       closeAddBoardForm: jasmine.createSpy('closeAddBoardForm'),
       clearBoardMode: jasmine.createSpy('clearBoardMode'),
     };
+    fakeUserDataService = jasmine.createSpyObj<UserDataService>(
+      'UserDataService',
+      {
+        addBoard: undefined,
+        editBoard: undefined,
+      }
+    );
 
     await TestBed.configureTestingModule({
       declarations: [AddBoardFormComponent],
@@ -53,5 +60,38 @@ describe('AddBoardFormComponent', () => {
     component.onCloseAddBoardModal();
     expect(fakeFormService.closeAddBoardForm).toHaveBeenCalled();
     expect(fakeFormService.clearBoardMode).toHaveBeenCalled();
+  });
+
+  it('add board submit', () => {
+    const testForm = <NgForm>{
+      value: {
+        name: 'Test name',
+        description: 'Test description'
+      },
+      reset() {
+        this.value.name = '';
+        this.value.description = '';
+      },
+    };
+    component.onSubmit(testForm);
+    expect(fakeUserDataService.addBoard).toHaveBeenCalled();
+    expect(fakeUserDataService.addBoard).toHaveBeenCalledWith('Test name', 'Test description');
+    expect(fakeFormService.clearBoardMode).toHaveBeenCalled();
+  });
+
+  it('edit board submit', () => {
+    const testForm = <NgForm>{
+      value: {
+        name: 'Test name',
+        description: 'Test description'
+      },
+      reset() {
+        this.value.name = '';
+        this.value.description = '';
+      },
+    };
+    component.editMode = true;
+    component.onSubmit(testForm);
+    expect(fakeUserDataService.editBoard).toHaveBeenCalled();
   });
 });

@@ -1,6 +1,7 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { FormsService } from 'src/app/features/services/forms.service';
 import { UserDataService } from 'src/app/features/services/user-data.service';
 
@@ -12,7 +13,7 @@ describe('TaskComponent', () => {
   let fakeFormsService: Pick<FormsService, 'setEditedTaskId'>;
   let fakeUserDataService: Pick<
     UserDataService,
-    'deleteTask' | 'archiveTask' | 'deleteTaskComment'
+    'deleteTask' | 'archiveTask' | 'deleteTaskComment' | 'addTaskComment'
   >;
 
   beforeEach(async () => {
@@ -23,6 +24,7 @@ describe('TaskComponent', () => {
       deleteTask: jasmine.createSpy('deleteTask'),
       archiveTask: jasmine.createSpy('archiveTask'),
       deleteTaskComment: jasmine.createSpy('deleteTaskComment'),
+      addTaskComment: jasmine.createSpy('addTaskComment'),
     };
 
     await TestBed.configureTestingModule({
@@ -106,5 +108,22 @@ describe('TaskComponent', () => {
     expect(component.task.commentsCounter).toBe(1);
     expect(component.task.commentsCounter).not.toBe(2);
     expect(fakeUserDataService.deleteTaskComment).toHaveBeenCalled();
+  });
+
+  it('add comment form submit', () => {
+    const testForm = <NgForm>{
+      value: {
+        comment: 'Test comment',
+      },
+      reset() {
+        this.value.comment = '';
+      },
+    };
+    component.task.comments = ['First comment'];
+    component.onSubmit(testForm);
+    expect(component.task.comments).toEqual(['First comment', 'Test comment']);
+    expect(component.task.commentsCounter).toBe(2);
+    expect(fakeUserDataService.addTaskComment).toHaveBeenCalled();
+    expect(testForm.value.comment).toBe('');
   });
 });

@@ -3,7 +3,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { AddTaskFormComponent } from './add-task-form.component';
 import { RouterTestingModule } from '@angular/router/testing';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { FormsService } from 'src/app/features/services/forms.service';
 import { UserDataService } from 'src/app/features/services/user-data.service';
 
@@ -30,6 +30,13 @@ describe('AddTaskFormComponent', () => {
       closeAddTaskForm: jasmine.createSpy('closeAddTaskForm'),
       clearTaskMode: jasmine.createSpy('clearTaskMode'),
     };
+    fakeUserDataService = jasmine.createSpyObj<UserDataService>(
+      'UserDataService',
+      {
+        addTask: undefined,
+        editTask: undefined,
+      }
+    );
 
     await TestBed.configureTestingModule({
       declarations: [AddTaskFormComponent],
@@ -53,5 +60,43 @@ describe('AddTaskFormComponent', () => {
     component.onCloseAddTaskModal();
     expect(fakeFormService.closeAddTaskForm).toHaveBeenCalled();
     expect(fakeFormService.clearTaskMode).toHaveBeenCalled();
+  });
+
+  it('add task submit', () => {
+    const testForm = <NgForm>{
+      value: {
+        taskState: 'todo',
+        task: 'Test task',
+      },
+      reset() {
+        this.value.taskState = '';
+        this.value.task = '';
+      },
+    };
+    component.currentBoardId = '1234qwety';
+    component.onSubmit(testForm);
+    expect(fakeUserDataService.addTask).toHaveBeenCalled();
+    expect(fakeFormService.clearTaskMode).toHaveBeenCalled();
+    expect(testForm.value.taskState).toBe('');
+    expect(testForm.value.task).toBe('');
+  });
+
+  it('edit task submit', () => {
+    const testForm = <NgForm>{
+      value: {
+        taskState: 'todo',
+        task: 'Test task',
+      },
+      reset() {
+        this.value.taskState = '';
+        this.value.task = '';
+      },
+    };
+    component.editMode = true;
+    component.currentBoardId = '1234qwety';
+    component.editedTaskId = '1234';
+    component.onSubmit(testForm);
+    expect(fakeUserDataService.editTask).toHaveBeenCalled();
+    expect(fakeUserDataService.editTask).toHaveBeenCalledWith('1234qwety', '1234', 'Test task', 'todo');
   });
 });

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
@@ -12,7 +12,7 @@ export class LoginFormComponent implements OnInit {
   loginForm!: FormGroup;
   isLoading: boolean = false;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router, private ngZone: NgZone) {}
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
@@ -32,7 +32,9 @@ export class LoginFormComponent implements OnInit {
     this.authService.login(email, password).subscribe({
       next: () => {
         this.isLoading = false;
-        this.router.navigate(['/dashboard']);
+        this.ngZone.run(() => {
+          this.router.navigate(['/dashboard']);
+        });
       },
       error: (error) => {
         this.isLoading = false;

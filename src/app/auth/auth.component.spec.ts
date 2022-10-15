@@ -3,6 +3,8 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { AuthComponent } from './auth.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { DashboardComponent } from '../features/components/dashboard/dashboard.component';
 
 describe('AuthComponent', () => {
   let component: AuthComponent;
@@ -11,7 +13,12 @@ describe('AuthComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ AuthComponent ],
-      imports: [HttpClientTestingModule],
+      imports: [
+        HttpClientTestingModule,
+        RouterTestingModule.withRoutes([
+          { path: 'dashboard', component: DashboardComponent },
+        ]),
+      ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
     .compileComponents();
@@ -23,5 +30,13 @@ describe('AuthComponent', () => {
   
   it('should create', () => {
     expect(component).toBeTruthy();
+  });  
+
+  it('navigate to dashboard', () => {
+    localStorage.setItem('userData', 'true');
+    component.ngOnInit();
+    expect(localStorage.getItem('userData')).toBe('true');
+    expect(component).toBeTruthy();
+    localStorage.clear();
   });  
 });
