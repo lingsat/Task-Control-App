@@ -52,10 +52,11 @@
         name="comment"
         id="comment"
         rows="1"
+        required
         placeholder="Comment..."
         ngModel
       ></textarea>
-      <button>Add</button>
+      <button [disabled]="addCommentForm.invalid">Add</button>
     </form>
   </div>
 </div>

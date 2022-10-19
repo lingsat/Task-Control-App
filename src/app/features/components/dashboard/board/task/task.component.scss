@@ -185,10 +185,17 @@
       border-radius: 0 10px 10px 0;
       cursor: pointer;
       transition: all 0.1s linear;
-
+      
       &:hover {
         color: #e7eaef;
         background-color: #217074;
+      }
+      
+      &:disabled {
+        background-color: #d2d2d4;
+        color: #217074;
+        opacity: 0.4;
+        cursor: auto;
       }
     }
   }

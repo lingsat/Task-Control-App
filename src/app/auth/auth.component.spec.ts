@@ -5,7 +5,6 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { AuthComponent } from './auth.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { DashboardComponent } from '../features/components/dashboard/dashboard.component';
-import { FormControl } from '@angular/forms';
 
 describe('AuthComponent', () => {
   let component: AuthComponent;

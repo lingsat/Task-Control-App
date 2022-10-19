@@ -3,6 +3,7 @@ import { DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { LoadingSpinnerComponent } from 'src/app/shared/loading-spinner/loading-spinner.component';
 import { DashboardComponent } from '../components/dashboard/dashboard.component';
 import { FilteringPipe } from '../pipes/filtering.pipe';
 import { SortingPipe } from '../pipes/sorting.pipe';
@@ -14,7 +15,7 @@ describe('BoardHighlightDirective', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [BoardHighlightDirective, DashboardComponent, FilteringPipe, SortingPipe],
+      declarations: [BoardHighlightDirective, DashboardComponent, LoadingSpinnerComponent, FilteringPipe, SortingPipe],
       imports: [HttpClientTestingModule, FormsModule],
     }).compileComponents();
 

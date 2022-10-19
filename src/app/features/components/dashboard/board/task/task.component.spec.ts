@@ -126,4 +126,22 @@ describe('TaskComponent', () => {
     expect(fakeUserDataService.addTaskComment).toHaveBeenCalled();
     expect(testForm.value.comment).toBe('');
   });
+
+  it('add empty comment', () => {
+    spyOn(window, 'confirm').and.callFake(() => true);
+    const testForm = <NgForm>{
+      value: {
+        comment: '   ',
+      },
+      reset() {
+        this.value.comment = '';
+      },
+    };
+    component.task.comments = ['First comment'];
+    component.onSubmit(testForm);
+    expect(component.task.comments).toEqual(['First comment']);
+    expect(component.task.commentsCounter).toBe(1);
+    expect(fakeUserDataService.addTaskComment).not.toHaveBeenCalled();
+    expect(testForm.value.comment).toBe('');
+  });
 });

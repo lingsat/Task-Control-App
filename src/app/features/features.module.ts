@@ -17,6 +17,7 @@ import { SortingPipe } from './pipes/sorting.pipe';
 import { TasksfilterPipe } from './pipes/tasksfilter.pipe';
 import { ArchiveComponent } from './components/archive/archive.component';
 import { AuthInterceptorService } from '../auth/services/auth-interceptor.service';
+import { LoadingSpinnerComponent } from '../shared/loading-spinner/loading-spinner.component';
 
 @NgModule({
   declarations: [

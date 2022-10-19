@@ -180,6 +180,7 @@
 }
 
 .spinner__container {
+  height: 250px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -219,6 +220,10 @@
       padding-top: 10px;
       margin-bottom: 10px;
     }
+  }
+
+  .spinner__container {
+    height: 225px;
   }
 }
 

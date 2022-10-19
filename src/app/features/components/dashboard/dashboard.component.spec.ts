@@ -1,8 +1,9 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { DebugElement } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { of } from 'rxjs';
+import { LoadingSpinnerComponent } from 'src/app/shared/loading-spinner/loading-spinner.component';
 import { Board } from '../../models/board.model';
 import { FilteringPipe } from '../../pipes/filtering.pipe';
 import { SortingPipe } from '../../pipes/sorting.pipe';
@@ -51,12 +52,13 @@ describe('DashboardComponent', () => {
     }
 
     await TestBed.configureTestingModule({
-      declarations: [DashboardComponent, FilteringPipe, SortingPipe],
+      declarations: [DashboardComponent, LoadingSpinnerComponent, FilteringPipe, SortingPipe],
       providers: [
         { provide: FormsService, useValue: fakeFormService },
         { provide: UserDataService, useValue: fakeUserDataService },
       ],
       imports: [HttpClientTestingModule, FormsModule],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
 
     fixture = TestBed.createComponent(DashboardComponent);

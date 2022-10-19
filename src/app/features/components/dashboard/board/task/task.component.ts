@@ -63,6 +63,11 @@ export class TaskComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
+    if (form.value.comment.trim() === '') {
+      alert("Comment can't be empty value!");
+      form.reset();
+      return;
+    }
     this.task.comments.push(form.value.comment);
     this.task.commentsCounter = this.task.comments.length;
     this.userDataService.addTaskComment(
