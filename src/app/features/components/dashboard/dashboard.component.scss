@@ -1,13 +1,8 @@
 .content {
-  margin-bottom: 5px;
+  padding: 10px 0 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  &__title {
-    padding-top: 20px;
-    margin-bottom: 20px;
-  }
 
   &__burger {
     display: none;
@@ -182,6 +177,12 @@
       color: #ED413E;
     }
   }
+}
+
+.spinner__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 @media(max-width: 1199.98px) {

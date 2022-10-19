@@ -3,7 +3,9 @@
 </ng-container>
 <div class="content">
   <h2 class="content__title">Dashboard</h2>
-  <button class="content__burger" (click)="onToggleFilterFormShow()">Filter/Sort</button>
+  <button class="content__burger" (click)="onToggleFilterFormShow()">
+    Filter/Sort
+  </button>
   <div class="content__controls" [ngClass]="showSmallForm ? 'show' : ''">
     <form class="controls__form" #controlsForm="ngForm">
       <fieldset class="controls__fieldset">
@@ -52,7 +54,9 @@
   </div>
   <div
     class="dashboard__item"
-    *ngFor="let board of boards | filtering: searchText | sorting: sortValue: sortOrder"
+    *ngFor="
+      let board of boards | filtering: searchText | sorting: sortValue:sortOrder
+    "
     [routerLink]="board._id"
     appBoardHighlight
   >
@@ -67,14 +71,14 @@
       <div class="item__controls">
         <button type="button">
           <img
-            src="../../../../assets/images/edit.svg"
+            src="assets/images/edit.svg"
             alt="Edit"
             (click)="onEditBoard(board); $event.stopPropagation()"
           />
         </button>
         <button type="button">
           <img
-            src="../../../../assets/images/delete.svg"
+            src="assets/images/delete.svg"
             alt="Delete"
             (click)="onDeleteBoard(board._id); $event.stopPropagation()"
           />
@@ -86,5 +90,8 @@
       <div class="item__stat item__stat--yellow">{{ board.progressCount }}</div>
       <div class="item__stat item__stat--red">{{ board.doneCount }}</div>
     </div>
+  </div>
+  <div class="spinner__container" *ngIf="userDataService.boardLoading">
+    <app-loading-spinner></app-loading-spinner>
   </div>
 </div>

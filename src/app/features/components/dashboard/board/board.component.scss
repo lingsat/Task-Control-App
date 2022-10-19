@@ -1,13 +1,8 @@
 .content {
-  margin-bottom: 5px;
+  padding: 10px 0 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  &__title {
-    padding-top: 20px;
-    margin-bottom: 20px;
-  }
 
   &__burger {
     display: none;
@@ -104,7 +99,7 @@
 }
 
 .tasks__container {
-  min-height: 234px;
+  min-height: 240px;
 }
 
 .colors {

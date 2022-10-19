@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormsService } from 'src/app/features/services/forms.service';
-import { Task } from 'src/app/features/models/board.model';
+import { Task, taskStatus } from 'src/app/features/models/board.model';
 import { UserDataService } from 'src/app/features/services/user-data.service';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -91,7 +91,7 @@ export class BoardComponent implements OnInit, OnDestroy {
     this.currentDraggableTask = task;
   }
 
-  onDrop(status: string) {
+  onDrop(status: taskStatus) {
     let dragStatus = this.currentDraggableTask.status;
     let dragId = this.currentDraggableTask.id;
     let modedTask: any = { ...this.currentDraggableTask, status };
@@ -110,14 +110,14 @@ export class BoardComponent implements OnInit, OnDestroy {
         case 'done':
           this.doneTasks.push(modedTask);
           break;
-      }
-      this.userDataService.changeTaskStatus(
-        this.curentBoardId,
-        this.currentDraggableTask.id,
-        status
-      );
+        }
+        this.userDataService.changeTaskStatus(
+          this.curentBoardId,
+          this.currentDraggableTask.id,
+          status
+        );
     }
-  }
+  }  
 
   onShowColors(columnStatus: string) {
     switch (columnStatus) {

@@ -2,7 +2,7 @@
   <h2 class="header__title">Archive</h2>
   <a class="header__btn" *ngIf="showDelBtn" (click)="onClearArchive()">
     Clear archive
-    <img src="../../../../assets/images/delete.svg" alt="Delete">
+    <img src="assets/images/delete.svg" alt="Delete" />
   </a>
 </div>
 <p class="message" *ngIf="!showDelBtn">No archived tasks found!</p>
@@ -10,7 +10,9 @@
   <div class="archive__block" *ngIf="board.archive.length">
     <h2 class="archive__title">{{ board.name }}</h2>
     <ul class="archive__list">
-      <li class="archive__task" *ngFor="let task of board.archive">{{ task.name }}</li>
+      <li class="archive__task" *ngFor="let task of board.archive">
+        {{ task.name }}
+      </li>
     </ul>
   </div>
 </article>

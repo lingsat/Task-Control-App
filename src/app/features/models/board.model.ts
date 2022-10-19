@@ -1,3 +1,5 @@
+export type taskStatus = 'todo' | 'progress' | 'done';
+
 export interface Board {
   userId: string | undefined;
   _id: string;
@@ -21,7 +23,7 @@ export interface Task {
   id: string;
   boardId: string;
   name: string;
-  status: 'todo' | 'progress' | 'done';
+  status: taskStatus;
   createdDate: Date;
   comments: string[];
   commentsCounter: number;

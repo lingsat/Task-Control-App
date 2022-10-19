@@ -3,22 +3,18 @@
   <div class="task__controls" [ngClass]="showControls ? 'show' : ''">
     <span class="task__date">{{ task.createdDate | date: "dd/MM/YYYY" }}</span>
     <button type="button" class="btn">
-      <img
-        src="../../../../assets/images/edit.svg"
-        alt="Edit"
-        (click)="onEditTask()"
-      />
+      <img src="assets/images/edit.svg" alt="Edit" (click)="onEditTask()" />
     </button>
     <button type="button" class="btn">
       <img
-        src="../../../../assets/images/delete.svg"
+        src="assets/images/delete.svg"
         alt="Delete"
         (click)="onDeleteTask()"
       />
     </button>
     <button type="button" class="btn" *ngIf="task.status === 'done'">
       <img
-        src="../../../../assets/images/archive.svg"
+        src="assets/images/archive.svg"
         alt="Archive"
         (click)="onArchiveTask()"
       />
@@ -28,7 +24,7 @@
     <div class="task__dot"></div>
   </div>
   <div class="task__comments" (click)="onToggleComments()">
-    <img src="../../../../../../assets/images/comment.svg" alt="Comments" />
+    <img src="assets/images/comment.svg" alt="Comments" />
     <span>{{ task.commentsCounter }}</span>
   </div>
   <div class="comments" [ngClass]="showComments ? 'show' : ''">
@@ -40,7 +36,7 @@
         <p class="comments__text">{{ comment }}</p>
         <button type="button" class="comments__delete">
           <img
-            src="../../../../assets/images/delete.svg"
+            src="assets/images/delete.svg"
             alt="Delete"
             (click)="onDeleteComment(i)"
           />

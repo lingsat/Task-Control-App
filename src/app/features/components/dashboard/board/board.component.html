@@ -3,12 +3,20 @@
 </ng-container>
 <div class="content">
   <h2 class="content__title">{{ boardName }}</h2>
-  <button class="content__burger" (click)="onToggleFilterFormShow()">Filter/Sort</button>
+  <button class="content__burger" (click)="onToggleFilterFormShow()">
+    Filter/Sort
+  </button>
   <div class="content__controls" [ngClass]="showSmallForm ? 'show' : ''">
     <form class="controls__form" #boardControlForm="ngForm">
       <fieldset class="controls__fieldset">
         <label for="filter">Filter</label>
-        <input type="text" name="filter" id="filter" placeholder="Search..." [(ngModel)]="searchText">
+        <input
+          type="text"
+          name="filter"
+          id="filter"
+          placeholder="Search..."
+          [(ngModel)]="searchText"
+        />
       </fieldset>
       <fieldset class="controls__fieldset">
         <label for="sort">Sort by</label>
@@ -32,8 +40,12 @@
 <div class="board__block">
   <div class="board__column">
     <h3 class="board__subtitle">ToDo</h3>
-    <div class="board__card" [ngStyle]="{backgroundColor: colColors.todo}">
-      <button type="button" class="board__add" (click)="onOpenAddTaskForm('todo')">
+    <div class="board__card" [ngStyle]="{ backgroundColor: colColors.todo }">
+      <button
+        type="button"
+        class="board__add"
+        (click)="onOpenAddTaskForm('todo')"
+      >
         +
       </button>
       <div
@@ -43,28 +55,62 @@
       >
         <div
           class="task__item"
-          *ngFor="let task of todoTasks | filtering: searchText | sorting: sortValue: sortOrder"
+          *ngFor="
+            let task of todoTasks
+              | filtering: searchText
+              | sorting: sortValue:sortOrder
+          "
           draggable="true"
           (dragstart)="onDragStart(task)"
         >
           <app-task [task]="task"></app-task>
         </div>
       </div>
-      <a href="" class="colors__link" (click)="onShowColors('todo'); $event.preventDefault()">Set column color</a>
+      <a
+        href=""
+        class="colors__link"
+        (click)="onShowColors('todo'); $event.preventDefault()"
+        >Set column color</a
+      >
       <ul class="colors" *ngIf="showTodoColors">
-        <li class="colors__item colors__item--red" (click)="onSetColor('todo', '#F1BAA1')"></li>
-        <li class="colors__item colors__item--violet" (click)="onSetColor('todo', '#D39CBD')"></li>
-        <li class="colors__item colors__item--blue" (click)="onSetColor('todo', '#81BECE')"></li>
-        <li class="colors__item colors__item--yellow" (click)="onSetColor('todo', '#FEF4C0')"></li>
-        <li class="colors__item colors__item--green" (click)="onSetColor('todo', '#C9D46C')"></li>
-        <li class="colors__item colors__item--default" (click)="onSetColor('todo', '#E7EAEF')"></li>
+        <li
+          class="colors__item colors__item--red"
+          (click)="onSetColor('todo', '#F1BAA1')"
+        ></li>
+        <li
+          class="colors__item colors__item--violet"
+          (click)="onSetColor('todo', '#D39CBD')"
+        ></li>
+        <li
+          class="colors__item colors__item--blue"
+          (click)="onSetColor('todo', '#81BECE')"
+        ></li>
+        <li
+          class="colors__item colors__item--yellow"
+          (click)="onSetColor('todo', '#FEF4C0')"
+        ></li>
+        <li
+          class="colors__item colors__item--green"
+          (click)="onSetColor('todo', '#C9D46C')"
+        ></li>
+        <li
+          class="colors__item colors__item--default"
+          (click)="onSetColor('todo', '#E7EAEF')"
+        ></li>
       </ul>
     </div>
   </div>
   <div class="board__column">
     <h3 class="board__subtitle">In Progress</h3>
-    <div class="board__card" [ngStyle]="{backgroundColor: colColors.progress}">
-      <button type="button" class="board__add" (click)="onOpenAddTaskForm('progress')">
+    <div
+      class="board__card"
+      [ngStyle]="{ backgroundColor: colColors.progress }"
+    >
+      <button
+        type="button"
+        class="board__add"
+        (click)="onOpenAddTaskForm('progress')"
+      >
         +
       </button>
       <div
@@ -74,28 +120,59 @@
       >
         <div
           class="task__item"
-          *ngFor="let task of progressTasks | filtering: searchText | sorting: sortValue: sortOrder"
+          *ngFor="
+            let task of progressTasks
+              | filtering: searchText
+              | sorting: sortValue:sortOrder
+          "
           draggable="true"
           (dragstart)="onDragStart(task)"
         >
           <app-task [task]="task"></app-task>
         </div>
       </div>
-      <a href="" class="colors__link" (click)="onShowColors('progress'); $event.preventDefault()">Set column color</a>
+      <a
+        href=""
+        class="colors__link"
+        (click)="onShowColors('progress'); $event.preventDefault()"
+        >Set column color</a
+      >
       <ul class="colors" *ngIf="showProgressColors">
-        <li class="colors__item colors__item--red" (click)="onSetColor('progress', '#F1BAA1')"></li>
-        <li class="colors__item colors__item--violet" (click)="onSetColor('progress', '#D39CBD')"></li>
-        <li class="colors__item colors__item--blue" (click)="onSetColor('progress', '#81BECE')"></li>
-        <li class="colors__item colors__item--yellow" (click)="onSetColor('progress', '#FEF4C0')"></li>
-        <li class="colors__item colors__item--green" (click)="onSetColor('progress', '#C9D46C')"></li>
-        <li class="colors__item colors__item--default" (click)="onSetColor('progress', '#E7EAEF')"></li>
+        <li
+          class="colors__item colors__item--red"
+          (click)="onSetColor('progress', '#F1BAA1')"
+        ></li>
+        <li
+          class="colors__item colors__item--violet"
+          (click)="onSetColor('progress', '#D39CBD')"
+        ></li>
+        <li
+          class="colors__item colors__item--blue"
+          (click)="onSetColor('progress', '#81BECE')"
+        ></li>
+        <li
+          class="colors__item colors__item--yellow"
+          (click)="onSetColor('progress', '#FEF4C0')"
+        ></li>
+        <li
+          class="colors__item colors__item--green"
+          (click)="onSetColor('progress', '#C9D46C')"
+        ></li>
+        <li
+          class="colors__item colors__item--default"
+          (click)="onSetColor('progress', '#E7EAEF')"
+        ></li>
       </ul>
     </div>
   </div>
   <div class="board__column">
     <h3 class="board__subtitle">Done</h3>
-    <div class="board__card" [ngStyle]="{backgroundColor: colColors.done}">
-      <button type="button" class="board__add" (click)="onOpenAddTaskForm('done')">
+    <div class="board__card" [ngStyle]="{ backgroundColor: colColors.done }">
+      <button
+        type="button"
+        class="board__add"
+        (click)="onOpenAddTaskForm('done')"
+      >
         +
       </button>
       <div
@@ -105,21 +182,48 @@
       >
         <div
           class="task__item"
-          *ngFor="let task of doneTasks | filtering: searchText | sorting: sortValue: sortOrder"
+          *ngFor="
+            let task of doneTasks
+              | filtering: searchText
+              | sorting: sortValue:sortOrder
+          "
           draggable="true"
           (dragstart)="onDragStart(task)"
         >
           <app-task [task]="task"></app-task>
         </div>
       </div>
-      <a href="" class="colors__link" (click)="onShowColors('done'); $event.preventDefault()">Set column color</a>
+      <a
+        href=""
+        class="colors__link"
+        (click)="onShowColors('done'); $event.preventDefault()"
+        >Set column color</a
+      >
       <ul class="colors" *ngIf="showDoneColors">
-        <li class="colors__item colors__item--red" (click)="onSetColor('done', '#F1BAA1')"></li>
-        <li class="colors__item colors__item--violet" (click)="onSetColor('done', '#D39CBD')"></li>
-        <li class="colors__item colors__item--blue" (click)="onSetColor('done', '#81BECE')"></li>
-        <li class="colors__item colors__item--yellow" (click)="onSetColor('done', '#FEF4C0')"></li>
-        <li class="colors__item colors__item--green" (click)="onSetColor('done', '#C9D46C')"></li>
-        <li class="colors__item colors__item--default" (click)="onSetColor('done', '#E7EAEF')"></li>
+        <li
+          class="colors__item colors__item--red"
+          (click)="onSetColor('done', '#F1BAA1')"
+        ></li>
+        <li
+          class="colors__item colors__item--violet"
+          (click)="onSetColor('done', '#D39CBD')"
+        ></li>
+        <li
+          class="colors__item colors__item--blue"
+          (click)="onSetColor('done', '#81BECE')"
+        ></li>
+        <li
+          class="colors__item colors__item--yellow"
+          (click)="onSetColor('done', '#FEF4C0')"
+        ></li>
+        <li
+          class="colors__item colors__item--green"
+          (click)="onSetColor('done', '#C9D46C')"
+        ></li>
+        <li
+          class="colors__item colors__item--default"
+          (click)="onSetColor('done', '#E7EAEF')"
+        ></li>
       </ul>
     </div>
   </div>
