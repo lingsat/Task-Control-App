@@ -3,13 +3,15 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
+
 import { Task } from 'src/app/features/models/board.model';
 import { FilteringPipe } from 'src/app/features/pipes/filtering.pipe';
 import { SortingPipe } from 'src/app/features/pipes/sorting.pipe';
 import { FormsService } from 'src/app/features/services/forms.service';
 import { UserDataService } from 'src/app/features/services/user-data.service';
-
 import { BoardComponent } from './board.component';
+import { testTasks } from '../../../../mockData/mockData';
+
 
 describe('BoardComponent', () => {
   let component: BoardComponent;
@@ -19,15 +21,7 @@ describe('BoardComponent', () => {
   let testTask: Task;
 
   beforeEach(async () => {
-    testTask = {
-      id: '123',
-      boardId: '12345',
-      name: 'Draggable task',
-      status: 'todo',
-      createdDate: new Date(),
-      comments: [],
-      commentsCounter: 0,
-    };
+    testTask = { ...testTasks[0] };
 
     fakeFormsService = {
       openAddTaskForm: jasmine.createSpy('openAddTaskForm'),
@@ -116,6 +110,7 @@ describe('BoardComponent', () => {
   });
 
   it('change task status on Drop task - from todo to done', () => {
+    testTask.status = 'todo';
     component.onDragStart(testTask);
     component.onDrop('done');
     expect(fakeUserDataService.changeTaskStatus).toHaveBeenCalled();

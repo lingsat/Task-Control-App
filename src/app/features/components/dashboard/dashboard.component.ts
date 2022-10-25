@@ -8,10 +8,10 @@ import { UserDataService } from '../../services/user-data.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit, OnDestroy {
-  boards: Board[] = []; 
+  boards: Board[] = [];
   searchText!: string;
   sortValue: SortRules = 'createdDate';
   sortOrder: SortOrder = 'asc';
@@ -19,13 +19,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   showSmallForm: boolean = false;
 
-  constructor(public formsService: FormsService, public userDataService: UserDataService) { }
+  constructor(
+    public formsService: FormsService,
+    public userDataService: UserDataService
+  ) {}
 
   ngOnInit(): void {
     this.userDataService.fetchBoards();
-    this.boardsSub = this.userDataService.getBoardsObs().subscribe(boards => {
+    this.boardsSub = this.userDataService.getBoardsObs().subscribe((boards) => {
       this.boards = boards;
-    })
+    });
   }
 
   onOpenAddBoardModal() {
@@ -37,7 +40,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   onEditBoard(board: Board) {
-    this.formsService.setEditedBoardId(board._id, board.name, board.description);
+    this.formsService.setEditedBoardId(
+      board._id,
+      board.name,
+      board.description
+    );
   }
 
   onToggleFilterFormShow() {
@@ -46,5 +53,5 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.boardsSub.unsubscribe();
-  } 
+  }
 }

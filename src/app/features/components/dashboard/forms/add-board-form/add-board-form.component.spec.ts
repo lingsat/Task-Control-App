@@ -1,14 +1,17 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, NgForm } from '@angular/forms';
+import { By } from '@angular/platform-browser';
+
 import { FormsService } from 'src/app/features/services/forms.service';
 import { UserDataService } from 'src/app/features/services/user-data.service';
-
 import { AddBoardFormComponent } from './add-board-form.component';
 
 describe('AddBoardFormComponent', () => {
   let component: AddBoardFormComponent;
   let fixture: ComponentFixture<AddBoardFormComponent>;
+  let debugElement: DebugElement;
   let fakeFormService: Pick<
     FormsService,
     | 'closeAddBoardForm'
@@ -49,6 +52,7 @@ describe('AddBoardFormComponent', () => {
 
     fixture = TestBed.createComponent(AddBoardFormComponent);
     component = fixture.componentInstance;
+    debugElement = fixture.debugElement;
     fixture.detectChanges();
   });
 
@@ -57,7 +61,7 @@ describe('AddBoardFormComponent', () => {
   });
 
   it('close Add Board Modal', () => {
-    component.onCloseAddBoardModal();
+    debugElement.query(By.css('.form__close')).triggerEventHandler('click', null);   
     expect(fakeFormService.closeAddBoardForm).toHaveBeenCalled();
     expect(fakeFormService.clearBoardMode).toHaveBeenCalled();
   });

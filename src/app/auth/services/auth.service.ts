@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap, BehaviorSubject } from 'rxjs';
-import { AuthResponseData } from '../models/response.model';
-import { User } from '../models/user.model';
 import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { environment as env } from 'src/environments/environment';
+import { AuthResponseData } from '../models/response.model';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root',

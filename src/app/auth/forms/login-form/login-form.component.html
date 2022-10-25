@@ -1,7 +1,12 @@
 <div *ngIf="isLoading">
   <app-loading-spinner></app-loading-spinner>
 </div>
-<form class="form"  *ngIf="!isLoading" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+<form
+  class="form"
+  *ngIf="!isLoading"
+  [formGroup]="loginForm"
+  (ngSubmit)="onSubmit()"
+>
   <h3 class="form__title">Login</h3>
   <input
     class="form__input"

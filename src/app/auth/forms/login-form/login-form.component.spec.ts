@@ -3,27 +3,24 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of, throwError } from 'rxjs';
-import { AuthService } from '../../services/auth.service';
+import { DebugElement } from '@angular/core';
+import { By } from '@angular/platform-browser';
 
+import { AuthService } from '../../services/auth.service';
 import { LoginFormComponent } from './login-form.component';
-import { AuthResponseData } from '../../models/response.model';
 import { DashboardComponent } from 'src/app/features/components/dashboard/dashboard.component';
+import { testResData } from '../../../mockData/mockData';
 
 describe('LoginFormComponent', () => {
   let component: LoginFormComponent;
   let fixture: ComponentFixture<LoginFormComponent>;
+  let debugElement: DebugElement;
   let fakeAuthService: Pick<
     AuthService,
     'setLoginMode' | 'login' | 'checkEmailValidator'
   >;
 
   beforeEach(async () => {
-    let testResData: AuthResponseData = {
-      jwt_token: 'Bearer qwerty1234',
-      userId: '12345',
-      email: 'testEmail@gmail.com',
-      login: 'testLogin',
-    };
     fakeAuthService = {
       setLoginMode: jasmine.createSpy('setLoginMode'),
       login: jasmine.createSpy('login').and.returnValue(of(testResData)),
@@ -44,6 +41,7 @@ describe('LoginFormComponent', () => {
 
     fixture = TestBed.createComponent(LoginFormComponent);
     component = fixture.componentInstance;
+    debugElement = fixture.debugElement;
     fixture.detectChanges();
   });
 
@@ -52,7 +50,7 @@ describe('LoginFormComponent', () => {
   });
 
   it('show register form', () => {
-    component.onShowRegisterForm();
+    debugElement.query(By.css('a')).triggerEventHandler('click', null);
     expect(fakeAuthService.setLoginMode).toHaveBeenCalled();
   });
 

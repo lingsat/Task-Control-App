@@ -6,10 +6,13 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { FormsModule, NgForm } from '@angular/forms';
 import { FormsService } from 'src/app/features/services/forms.service';
 import { UserDataService } from 'src/app/features/services/user-data.service';
+import { DebugElement } from '@angular/core';
+import { By } from '@angular/platform-browser';
 
 describe('AddTaskFormComponent', () => {
   let component: AddTaskFormComponent;
   let fixture: ComponentFixture<AddTaskFormComponent>;
+  let debugElement: DebugElement;
   let fakeFormService: Pick<
     FormsService,
     | 'defaultTaskStatus'
@@ -49,6 +52,7 @@ describe('AddTaskFormComponent', () => {
 
     fixture = TestBed.createComponent(AddTaskFormComponent);
     component = fixture.componentInstance;
+    debugElement = fixture.debugElement;
     fixture.detectChanges();
   });
 
@@ -57,7 +61,7 @@ describe('AddTaskFormComponent', () => {
   });
 
   it('close Add Task Modal', () => {
-    component.onCloseAddTaskModal();
+    debugElement.query(By.css('.form__close')).triggerEventHandler('click', null);
     expect(fakeFormService.closeAddTaskForm).toHaveBeenCalled();
     expect(fakeFormService.clearTaskMode).toHaveBeenCalled();
   });

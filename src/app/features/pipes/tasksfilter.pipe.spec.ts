@@ -1,50 +1,14 @@
-import { Task } from '../models/board.model';
 import { TasksfilterPipe } from './tasksfilter.pipe';
-
-const tasksArr: Task[] = [
-  {
-    id: '1',
-    boardId: '123',
-    name: 'First task',
-    status: 'todo',
-    createdDate: new Date(),
-    comments: [],
-    commentsCounter: 0,
-  },
-  {
-    id: '2',
-    boardId: '123',
-    name: 'Second task',
-    status: 'progress',
-    createdDate: new Date(),
-    comments: [],
-    commentsCounter: 0,
-  },
-  {
-    id: '3',
-    boardId: '123',
-    name: 'Third task',
-    status: 'done',
-    createdDate: new Date(),
-    comments: [],
-    commentsCounter: 0,
-  },
-  {
-    id: '4',
-    boardId: '123',
-    name: 'Fourth task',
-    status: 'progress',
-    createdDate: new Date(),
-    comments: [],
-    commentsCounter: 0,
-  },
-];
+import { testTasks } from 'src/app/mockData/mockData';
+import { Task } from '../models/board.model';
 
 describe('TasksfilterPipe', () => {
   let pipe: TasksfilterPipe;
+  let tasksArr: Task[];
 
   beforeEach(() => {
     pipe = new TasksfilterPipe();
+    tasksArr = [ ...testTasks ];
   });
 
   it('create an instance', () => {
@@ -63,6 +27,6 @@ describe('TasksfilterPipe', () => {
 
   it('done task count', () => {
     let doneTasksCount: number = pipe.transform(tasksArr, 'done');
-    expect(doneTasksCount).toBe(1);
+    expect(doneTasksCount).toBe(2);
   });
 });

@@ -6,20 +6,22 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HeaderComponent } from './header.component';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { User } from 'src/app/auth/models/user.model';
+import { By } from '@angular/platform-browser';
+import { DebugElement } from '@angular/core';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
   let fixture: ComponentFixture<HeaderComponent>;
   let fakeAuthService: Pick<AuthService, 'logout' | 'user'>;
-  let testUser: User;
+  let debugElement: DebugElement;
+  let testUser: User = new User(
+    'TestUser',
+    'testuser@gmail.com',
+    'user123',
+    'Bearer 1234qwerty'
+  );
 
   beforeEach(async () => {
-    testUser = new User(
-      'TestUser',
-      'testuser@gmail.com',
-      'user123',
-      'Bearer 1234qwerty'
-    );
     fakeAuthService = {
       user: new BehaviorSubject<User | null>(testUser),
       logout: jasmine.createSpy('logout'),
@@ -33,6 +35,7 @@ describe('HeaderComponent', () => {
 
     fixture = TestBed.createComponent(HeaderComponent);
     component = fixture.componentInstance;
+    debugElement = fixture.debugElement;
     fixture.detectChanges();
   });
 
@@ -41,19 +44,25 @@ describe('HeaderComponent', () => {
   });
 
   it('show navigation on toggleNavigation function call', () => {
-    component.onToggleNavigation();
+    debugElement
+      .query(By.css('.header__burger'))
+      .triggerEventHandler('click', null);
     expect(component.showNavigation).toBeTrue();
   });
 
   it('logout calls from authService - true confirm', () => {
     spyOn(window, 'confirm').and.callFake(() => true);
-    component.onLogout();
+    debugElement
+      .query(By.css('.header__btn'))
+      .triggerEventHandler('click', null);
     expect(fakeAuthService.logout).toHaveBeenCalled();
   });
 
   it('logout not calls from authService - false confirm', () => {
     spyOn(window, 'confirm').and.callFake(() => false);
-    component.onLogout();
+    debugElement
+      .query(By.css('.header__btn'))
+      .triggerEventHandler('click', null);
     expect(fakeAuthService.logout).not.toHaveBeenCalled();
   });
 });

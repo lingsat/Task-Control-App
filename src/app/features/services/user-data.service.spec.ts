@@ -7,92 +7,9 @@ import {
 import { UserDataService } from './user-data.service';
 import { Board, Task } from '../models/board.model';
 import { environment as env } from 'src/environments/environment';
+import { testBoards } from '../../mockData/mockData';
 
 let boardsArr: Board[];
-const testBoards: Board[] = [
-  {
-    userId: '123',
-    _id: '1245',
-    name: 'First board',
-    description: 'This is my first board',
-    createdDate: new Date(),
-    tasks: [
-      {
-        id: '123',
-        boardId: '1245',
-        name: 'Test task',
-        status: 'todo',
-        createdDate: new Date(),
-        comments: [],
-        commentsCounter: 0,
-      },
-      {
-        id: '124',
-        boardId: '1245',
-        name: 'Test task v2',
-        status: 'progress',
-        createdDate: new Date(),
-        comments: [],
-        commentsCounter: 0,
-      },
-      {
-        id: '125',
-        boardId: '1245',
-        name: 'Test task v3',
-        status: 'done',
-        createdDate: new Date(),
-        comments: [],
-        commentsCounter: 0,
-      }
-    ],
-    todoCount: 0,
-    progressCount: 0,
-    doneCount: 0,
-    archive: [],
-    colColors: {
-      todo: '#fff',
-      progress: '#fff',
-      done: '#fff',
-    },
-    __v: 0,
-  },
-  {
-    userId: '1234',
-    _id: '12456',
-    name: 'Second board',
-    description: 'This is my second board',
-    createdDate: new Date(),
-    tasks: [],
-    todoCount: 0,
-    progressCount: 0,
-    doneCount: 0,
-    archive: [],
-    colColors: {
-      todo: '#fff',
-      progress: '#fff',
-      done: '#fff',
-    },
-    __v: 0,
-  },
-  {
-    userId: '12345',
-    _id: '124567',
-    name: 'Third board',
-    description: 'This is my third board',
-    createdDate: new Date(),
-    tasks: [],
-    todoCount: 0,
-    progressCount: 0,
-    doneCount: 0,
-    archive: [],
-    colColors: {
-      todo: '#fff',
-      progress: '#fff',
-      done: '#fff',
-    },
-    __v: 0,
-  },
-];
 
 describe('UserDataService', () => {
   let service: UserDataService;
