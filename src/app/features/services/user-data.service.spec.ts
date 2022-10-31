@@ -5,7 +5,7 @@ import {
 } from '@angular/common/http/testing';
 
 import { UserDataService } from './user-data.service';
-import { Board, Task } from '../models/board.model';
+import { Board } from '../models/board.model';
 import { environment as env } from 'src/environments/environment';
 import { testBoards } from '../../mockData/mockData';
 

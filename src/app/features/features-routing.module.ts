@@ -19,6 +19,6 @@ const featureRoutes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(featureRoutes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class FeaturesRoutingModule {}
