@@ -27,6 +27,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     if (confirm('Do you really want to Logout?')) {
       this.authService.logout();   
       // clear boards array on logout
+      this.userDataService.setBoards([]);
       this.userDataService.clearBoardsRequestState();   
     }
   }
