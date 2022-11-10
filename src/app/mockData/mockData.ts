@@ -92,9 +92,9 @@ export const testBoards: Board[] = [
         commentsCounter: 0,
       }
     ],
-    todoCount: 0,
-    progressCount: 0,
-    doneCount: 0,
+    todoCount: 1,
+    progressCount: 1,
+    doneCount: 1,
     archive: [],
     colColors: {
       todo: '#fff',

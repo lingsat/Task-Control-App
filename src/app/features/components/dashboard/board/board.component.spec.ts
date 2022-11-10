@@ -10,7 +10,9 @@ import { SortingPipe } from 'src/app/features/pipes/sorting.pipe';
 import { FormsService } from 'src/app/features/services/forms.service';
 import { UserDataService } from 'src/app/features/services/user-data.service';
 import { BoardComponent } from './board.component';
-import { testTasks } from '../../../../mockData/mockData';
+import { testBoards, testTasks } from '../../../../mockData/mockData';
+import { ActivatedRoute } from '@angular/router';
+import { TaskComponent } from './task/task.component';
 
 
 describe('BoardComponent', () => {
@@ -30,14 +32,15 @@ describe('BoardComponent', () => {
       setBoardColor: jasmine.createSpy('setBoardColor'),
       changeTaskStatus: jasmine.createSpy('changeTaskStatus'),
       fetchBoards() {},
-      getBoardsObs: jasmine.createSpy('getBoardsObs').and.returnValue(of([])),
+      getBoardsObs: jasmine.createSpy('getBoardsObs').and.returnValue(of(testBoards)),
     };
 
     await TestBed.configureTestingModule({
-      declarations: [BoardComponent, FilteringPipe, SortingPipe],
+      declarations: [BoardComponent, TaskComponent, FilteringPipe, SortingPipe],
       providers: [
         { provide: FormsService, useValue: fakeFormsService },
-        { provide: UserDataService, useValue: fakeUserDataService }
+        { provide: UserDataService, useValue: fakeUserDataService },
+        { provide: ActivatedRoute, useValue: { params: of({id: '1245'}) } }
       ],
       imports: [HttpClientTestingModule, RouterTestingModule, FormsModule],
     }).compileComponents();
@@ -121,5 +124,15 @@ describe('BoardComponent', () => {
     component.onDragStart(testTask);
     component.onDrop('todo');
     expect(fakeUserDataService.changeTaskStatus).toHaveBeenCalled();
+  });
+
+  it('get correct board from boards array', () => {  
+    expect(component.boardName).toBe('First board');
+  });
+
+  it('set correct tasks from board', () => {  
+    expect(component.todoTasks[0].id).toBe('123');
+    expect(component.progressTasks[0].id).toBe('124');
+    expect(component.doneTasks[0].id).toBe('125');
   });
 });

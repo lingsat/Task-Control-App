@@ -1,12 +1,11 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { of } from 'rxjs';
 import { DebugElement } from '@angular/core';
-import { By } from '@angular/platform-browser';
 
 import { ArchiveComponent } from './archive.component';
 import { UserDataService } from '../../services/user-data.service';
-import { testBoards, testTasks } from '../../../mockData/mockData';
+import { testBoards } from '../../../mockData/mockData';
 
 describe('ArchiveComponent', () => {
   let component: ArchiveComponent;
@@ -48,9 +47,9 @@ describe('ArchiveComponent', () => {
   });
 
   // not correct
-  it('clear archive not calls from UserDataService - false confirm', () => {
+  it('clear archive not calls from UserDataService - false confirm', fakeAsync(() => {    
     spyOn(window, 'confirm').and.callFake(() => false);
     component.onClearArchive();
     expect(fakeUserDataService.clearArchive).not.toHaveBeenCalled();
-  });
+  }));
 });

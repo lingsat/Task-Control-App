@@ -6,11 +6,10 @@ import { UserDataService } from '../../services/user-data.service';
 @Component({
   selector: 'app-archive',
   templateUrl: './archive.component.html',
-  styleUrls: ['./archive.component.scss']
+  styleUrls: ['./archive.component.scss'],
 })
 export class ArchiveComponent implements OnInit, OnDestroy {
   boards: Board[] = [];
-  archiveTasks: Task[] = [];
   showDelBtn: boolean = true;
   boardsSub!: Subscription;
 
